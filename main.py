@@ -15,11 +15,11 @@ class MainWindow(QWidget):
         super().__init__()
 
         trayIcon = QSystemTrayIcon(QIcon('lake112.ico'), parent=self)
-        trayIcon.setToolTip('ZOOTR GSD')
+        trayIcon.setToolTip('TheySayThat')
         trayIcon.show()
 
         self.setFixedSize(880, 500)
-        self.setWindowTitle("ZOOTR Gossip Stone Display by Go1den")
+        self.setWindowTitle("TheySayThat by Go1den")
         self.labelSpoilerLog = None
         self.labelOutputFile = None
         self.gossipStones = getGossipStones()
