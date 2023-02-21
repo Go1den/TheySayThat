@@ -1,1 +1,0 @@
-pyinstaller --icon=lake112.ico --onefile main.py --windowed --debug=all
