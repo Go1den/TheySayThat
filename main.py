@@ -1,8 +1,7 @@
-import json
-import os
-import shutil
 import sys
-from json import JSONDecodeError
+from json import JSONDecodeError, dumps, load
+from os import getcwd, path, access, W_OK
+from shutil import copyfile
 
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QFileDialog, QLabel, QMessageBox, QSystemTrayIcon
@@ -64,7 +63,7 @@ class MainWindow(QWidget):
         self.buttons = dict()
         self.hints = dict()
         self.spoilerLog = ""
-        self.outputFile = (os.getcwd() + '/output.txt').replace('\\', '/')
+        self.outputFile = (getcwd() + '/output.txt').replace('\\', '/')
         self.clickedButtons = []
         self.createButtons()
         self.loadConfig()
@@ -83,7 +82,7 @@ class MainWindow(QWidget):
         if self.clickedButtons:
             resultDict['clickedButtons'] = self.clickedButtons
         self.clearFile('config.json')
-        self.writeToFile('config.json', json.dumps(resultDict, indent=2))
+        self.writeToFile('config.json', dumps(resultDict, indent=2))
         event.accept()
 
     def createDefaultUI(self):
@@ -129,9 +128,9 @@ class MainWindow(QWidget):
         btn3.show()
 
     def isPathExistsOrCreateable(self, pathName):
-        directoryName = os.path.dirname(pathName) or os.getcwd()
+        directoryName = path.dirname(pathName) or getcwd()
         try:
-            return os.path.exists(pathName) or os.access(directoryName, os.W_OK)
+            return path.exists(pathName) or access(directoryName, W_OK)
         except OSError:
             return False
 
@@ -139,7 +138,7 @@ class MainWindow(QWidget):
         try:
             with open('config.json') as myFile:
                 try:
-                    data = json.load(myFile)
+                    data = load(myFile)
                     if data is not None:
                         try:
                             if data['spoilerLog'] != "" and self.isPathExistsOrCreateable(data['spoilerLog']):
@@ -181,7 +180,7 @@ class MainWindow(QWidget):
     def clear(self, override):
         reply = QMessageBox.No
         if not override:
-            reply = QMessageBox.question(self, 'Confirm Reset', 'Are you sure you want to reset all buttons and clear the output file?', QMessageBox.Yes | QMessageBox.No,
+            reply = QMessageBox.question(self, 'Confirm', 'Are you sure you want to reset all buttons and clear the output file?', QMessageBox.Yes | QMessageBox.No,
                                          QMessageBox.No)
         if override or reply == QMessageBox.Yes:
             isLogParsed = self.tryParseLog(self.spoilerLog)
@@ -208,7 +207,7 @@ class MainWindow(QWidget):
         if log is not None and log != "":
             try:
                 with open(log) as myFile:
-                    data = json.load(myFile)
+                    data = load(myFile)
                 try:
                     hints = dict(data['gossip_stones'].items())
                     self.hints = hints
@@ -230,7 +229,7 @@ class MainWindow(QWidget):
         if not self.tryParseLog(fileName):
             return
         if fileName != self.spoilerLog:
-            reply = QMessageBox.question(self, 'Confirm New Spoiler Log', 'Loading a new spoiler log will reset the buttons and clear the output file. Do you want to continue?',
+            reply = QMessageBox.question(self, 'Confirm', 'Loading a new spoiler log will reset the buttons and clear the output file. Do you want to continue?',
                                          QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
             if reply == QMessageBox.Yes:
                 self.spoilerLog = fileName
@@ -257,7 +256,10 @@ class MainWindow(QWidget):
             reply = QMessageBox.question(self, 'Confirm', 'Would you like to copy the contents of the previous output file to this one?',
                                          QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
             if reply == QMessageBox.Yes:
-                shutil.copyfile(self.outputFile, fileName)
+                try:
+                    copyfile(self.outputFile, fileName)
+                except:
+                    self.showErrorMessage("Attempt to copy from the previous file was unsuccessful.")
             self.outputFile = fileName
             self.labelOutputFile.setText(self.outputFile)
             self.labelOutputFile.adjustSize()
