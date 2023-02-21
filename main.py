@@ -143,7 +143,11 @@ class MainWindow(QWidget):
             reply = QMessageBox.question(self, 'Confirm Reset', 'Are you sure you want to reset all buttons and clear the output file?', QMessageBox.Yes | QMessageBox.No,
                                          QMessageBox.No)
         if override or reply == QMessageBox.Yes:
-            self.setAllButtons(True)
+            isLogParsed = self.tryParseLog(self.spoilerLog)
+            if not isLogParsed:
+                self.setAllButtons(False)
+            else:
+                self.setAllButtons(True)
             self.clearFile(self.outputFile)
             self.clickedButtons = []
 
@@ -156,7 +160,6 @@ class MainWindow(QWidget):
         open(f, 'w').close()
 
     def writeToFile(self, f, text):
-        print("Test")
         with open(f, 'a') as myFile:
             myFile.write(text + '  ')
 
