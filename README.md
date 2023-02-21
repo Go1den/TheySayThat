@@ -8,4 +8,4 @@ They say that given a spoiler log from a ZOOTR seed, this program allows you to 
 
 ![TheySayThat2](https://github.com/Go1den/TheySayThat/blob/main/example2.png?raw=true)
 
-
+Note: This has only been tested on Windows 10. Try it elsewhere at your own risk.
