@@ -7,14 +7,53 @@ from json import JSONDecodeError
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QFileDialog, QLabel, QMessageBox, QSystemTrayIcon
 
-from gossipstones import getGossipStones
-
 class MainWindow(QWidget):
 
     def __init__(self):
         super().__init__()
 
-        trayIcon = QSystemTrayIcon(QIcon('lake112.ico'), parent=self)
+        self.gossipStones = ['Colossus (Spirit Temple)',
+                             'DMC (Bombable Wall)',
+                             'DMC (Upper Grotto)',
+                             'DMT (Biggoron)',
+                             'DMT (Storms Grotto)',
+                             'Dodongos Cavern (Bombable Wall)',
+                             'GC (Maze)',
+                             'GC (Medigoron)',
+                             'GV (Waterfall)',
+                             'Graveyard (Shadow Temple)',
+                             'HC (Malon)',
+                             'HC (Rock Wall)',
+                             'HC (Storms Grotto)',
+                             'HF (Cow Grotto)',
+                             'HF (Near Market Grotto)',
+                             'HF (Open Grotto)',
+                             'HF (Southeast Grotto)',
+                             'KF (Deku Tree Left)',
+                             'KF (Deku Tree Right)',
+                             'KF (Outside Storms)',
+                             'KF (Storms Grotto)',
+                             'Kak (Open Grotto)',
+                             'LH (Lab)',
+                             'LH (Southeast Corner)',
+                             'LH (Southwest Corner)',
+                             'LW (Bridge)',
+                             'LW (Near Shortcuts Grotto)',
+                             'SFM (Maze Lower)',
+                             'SFM (Maze Upper)',
+                             'SFM (Saria)',
+                             'ToT (Left)',
+                             'ToT (Left-Center)',
+                             'ToT (Right)',
+                             'ToT (Right-Center)',
+                             'ZD (Mweep)',
+                             'ZF (Fairy)',
+                             'ZF (Jabu)',
+                             'ZR (Near Domain)',
+                             'ZR (Near Grottos)',
+                             'ZR (Open Grotto)']
+
+        trayIcon = QSystemTrayIcon(QIcon('TheySayThat.ico'), parent=self)
         trayIcon.setToolTip('TheySayThat')
         trayIcon.show()
 
@@ -22,7 +61,6 @@ class MainWindow(QWidget):
         self.setWindowTitle("TheySayThat by Go1den")
         self.labelSpoilerLog = None
         self.labelOutputFile = None
-        self.gossipStones = getGossipStones()
         self.buttons = dict()
         self.hints = dict()
         self.spoilerLog = ""
@@ -98,28 +136,31 @@ class MainWindow(QWidget):
             return False
 
     def loadConfig(self):
-        with open('config.json') as myFile:
-            try:
-                data = json.load(myFile)
-                if data is not None:
-                    try:
-                        if data['spoilerLog'] != "" and self.isPathExistsOrCreateable(data['spoilerLog']):
-                            self.spoilerLog = data['spoilerLog']
-                    except KeyError:
-                        pass
-                    try:
-                        if data['outputFile'] != "" and self.isPathExistsOrCreateable(data['outputFile']):
-                            self.outputFile = data['outputFile']
-                    except KeyError:
-                        pass
-                    try:
-                        if data['clickedButtons'] is not None:
-                            self.clickedButtons = data['clickedButtons']
-                            self.disableClickedButtons()
-                    except KeyError:
-                        pass
-            except JSONDecodeError:
-                return
+        try:
+            with open('config.json') as myFile:
+                try:
+                    data = json.load(myFile)
+                    if data is not None:
+                        try:
+                            if data['spoilerLog'] != "" and self.isPathExistsOrCreateable(data['spoilerLog']):
+                                self.spoilerLog = data['spoilerLog']
+                        except KeyError:
+                            pass
+                        try:
+                            if data['outputFile'] != "" and self.isPathExistsOrCreateable(data['outputFile']):
+                                self.outputFile = data['outputFile']
+                        except KeyError:
+                            pass
+                        try:
+                            if data['clickedButtons'] is not None:
+                                self.clickedButtons = data['clickedButtons']
+                                self.disableClickedButtons()
+                        except KeyError:
+                            pass
+                except JSONDecodeError:
+                    return
+        except FileNotFoundError:
+            pass
 
     def disableClickedButtons(self):
         for button in self.clickedButtons:
@@ -244,6 +285,6 @@ class MainWindow(QWidget):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    app.setWindowIcon(QIcon('lake112.ico'))
+    app.setWindowIcon(QIcon('TheySayThat.ico'))
     win = MainWindow()
     sys.exit(app.exec_())
