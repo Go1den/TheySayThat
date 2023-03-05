@@ -38,7 +38,7 @@ class MainWindow(QWidget):
         self.clickedButtons = []
         self.loadConfig()
         self.createDefaultUI()
-        isLogParsed = self.tryParseLog(self.spoilerLog, False)
+        isLogParsed = self.tryParseLog(self.spoilerLog)
         self.createButtons()
         self.disableClickedButtons()
         self.show()
@@ -190,7 +190,14 @@ class MainWindow(QWidget):
     def printHint(self, buttonText, btn, hintText):
         btn.setEnabled(False)
         self.clickedButtons.append({'buttonText': buttonText})
-        self.writeToFile(self.outputFile, hintText)
+        if not self.fileContainsHint(hintText):
+            self.writeToFile(self.outputFile, hintText)
+
+    def fileContainsHint(self, hintText) -> bool:
+        with open(self.outputFile) as f:
+            if hintText in f.read():
+                return True
+        return False
         
     def resetButtons(self, override):
         reply = QMessageBox.No
@@ -222,7 +229,7 @@ class MainWindow(QWidget):
         with open(f, 'a') as myFile:
             myFile.write(text + '  ')
 
-    def tryParseLog(self, log, override):
+    def tryParseLog(self, log):
         try:
             if log is not None and log != "" and self.game is not None:
                 result = self.game.update(log)
@@ -239,7 +246,7 @@ class MainWindow(QWidget):
             self.showErrorMessage("Invalid file path.")
             return
         fileName = fileName.replace('\\', '/')
-        if not self.tryParseLog(fileName, True):
+        if not self.tryParseLog(fileName):
             self.showErrorMessage("The selected spoiler log is incompatible with the current game.")
             return
         if fileName != self.spoilerLog:
