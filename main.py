@@ -45,7 +45,7 @@ class MainWindow(QWidget):
 
         if not isLogParsed:
             self.setAllButtons(False)
-            self.showErrorMessage("The selected spoiler log is incompatible with the current game.")
+            self.showWarningMessage("The current spoiler log is not compatible with the chosen game. Please select a valid spoiler log.")
 
     def closeEvent(self, event):
         resultDict = dict()
