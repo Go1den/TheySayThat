@@ -6,7 +6,7 @@ from shutil import copyfile
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QFileDialog, QLabel, QMessageBox, QSystemTrayIcon, QComboBox, QFrame
 
-from fileHelper import isPathExistsOrCreatable, writeToFile, fileContainsText, clearFile
+from fileHelper import isPathExistsOrCreatable, writeToFile, fileContainsText, clearFile, readFileToString
 from game import Game
 from supportedGames.donkeykong64 import DonkeyKong64
 from supportedGames.majorasmask import MajorasMask
@@ -34,10 +34,12 @@ class MainWindow(QWidget):
         self.gameDropdown = None
         self.resetButton = None
         self.labelSpoilerLog = None
+        self.hintHandlerDropdown = None
         self.labelOutputFile = None
         self.buttons = dict()
         self.spoilerLog = ""
         self.outputFile = (getcwd() + '/output.txt').replace('\\', '/')
+        self.hintHandler = "Filter them"
         self.clickedButtons = []
         self.loadConfig()
         self.createDefaultUI()
@@ -58,6 +60,8 @@ class MainWindow(QWidget):
             resultDict['spoilerLog'] = self.spoilerLog
         if self.outputFile:
             resultDict['outputFile'] = self.outputFile
+        if self.hintHandler:
+            resultDict['hintHandler'] = self.hintHandler
         if self.clickedButtons:
             resultDict['clickedButtons'] = self.clickedButtons
         clearFile('config.json')
@@ -75,6 +79,9 @@ class MainWindow(QWidget):
         else:
             self.setAllButtons(True)
 
+    def onHintHandlerChange(self, hintHandler):
+        self.hintHandler = hintHandler
+
     def createDefaultUI(self):
         gameNames = [x.getGameName() for x in self.games]
         gameNames = sorted(gameNames)
@@ -86,6 +93,25 @@ class MainWindow(QWidget):
         self.gameDropdown.resize(419, 28)
         self.gameDropdown.move(11, 11)
         self.gameDropdown.show()
+
+        labelHintHandler = QLabel(self)
+        labelHintHandler.setText("Duplicate Hint Behavior: ")
+        labelHintHandler.move(550, 19)
+        labelHintHandler.show()
+
+        hintHandlers = ["Filter duplicate hints", "Count duplicate hints", "Always add every hint"]
+        try:
+            indexToSet = hintHandlers.index(self.hintHandler)
+        except ValueError:
+            indexToSet = 0
+            self.hintHandler = "Filter duplicate hints"
+        self.hintHandlerDropdown = QComboBox(self)
+        self.hintHandlerDropdown.addItems(hintHandlers)
+        self.hintHandlerDropdown.setCurrentIndex(indexToSet)
+        self.hintHandlerDropdown.currentTextChanged.connect(self.onHintHandlerChange)
+        self.hintHandlerDropdown.resize(198, 28)
+        self.hintHandlerDropdown.move(671, 11)
+        self.hintHandlerDropdown.show()
 
         btn = QPushButton(self)
         btn.setText('Select Spoiler Log')
@@ -168,6 +194,11 @@ class MainWindow(QWidget):
                                 self.game = next((x for x in self.games if x.getGameName() == data['game']), self.game)
                         except KeyError:
                             self.game = self.game
+                        try:
+                            if data['hintHandler'] is not None:
+                                self.hintHandler = data['hintHandler']
+                        except KeyError:
+                            pass
                 except JSONDecodeError:
                     return
         except FileNotFoundError:
@@ -187,8 +218,28 @@ class MainWindow(QWidget):
         btn.setEnabled(False)
         self.clickedButtons.append({'buttonText': buttonText})
         hintText = next((x.value for x in self.game.getHints() if x.buttonText == buttonText), "")
-        if not fileContainsText(self.outputFile, hintText):
+        if self.hintHandler == "Always add every hint":
             writeToFile(self.outputFile, hintText)
+            return
+        hintAlreadyExists = fileContainsText(self.outputFile, hintText)
+        if not hintAlreadyExists:
+            writeToFile(self.outputFile, hintText)
+            return
+        if self.hintHandler == "Count duplicate hints":
+            fileContents = readFileToString(self.outputFile)
+            idx = fileContents.index(hintText)
+            if idx >= 0:
+                checkIndex = idx + len(hintText)
+                potentialCountString = fileContents[checkIndex:checkIndex + 5]
+                if ' (x' in potentialCountString and ')' in potentialCountString:
+                    currentCount = int(fileContents[checkIndex + 3])
+                    result = fileContents[:checkIndex + 3] + str(currentCount + 1) + fileContents[checkIndex + 4:]
+                else:
+                    result = fileContents[:checkIndex] + ' (x2)' + fileContents[checkIndex:]
+                clearFile(self.outputFile)
+                writeToFile(self.outputFile, result.rstrip())
+            else:  # Should not be possible
+                writeToFile(self.outputFile, hintText)
 
     def resetButtons(self, override):
         reply = QMessageBox.No

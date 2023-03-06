@@ -19,3 +19,8 @@ def fileContainsText(file, text) -> bool:
 
 def clearFile(f):
     open(f, 'w').close()
+
+def readFileToString(f) -> str:
+    with open(f, 'r') as myFile:
+        result = myFile.read()
+    return result
