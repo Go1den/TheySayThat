@@ -1,12 +1,14 @@
 import sys
 from json import JSONDecodeError, dumps, load
-from os import getcwd, path, access, W_OK
+from os import getcwd
 from shutil import copyfile
 
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QFileDialog, QLabel, QMessageBox, QSystemTrayIcon, QComboBox, QFrame
 
+from fileHelper import isPathExistsOrCreatable, writeToFile, fileContainsText, clearFile
 from game import Game
+from supportedGames.donkeykong64 import DonkeyKong64
 from supportedGames.majorasmask import MajorasMask
 from supportedGames.ocarinaoftime import OcarinaOfTime
 
@@ -16,6 +18,7 @@ class MainWindow(QWidget):
         super().__init__()
 
         self.games: list[Game] = [
+            DonkeyKong64(),
             OcarinaOfTime(),
             MajorasMask()
         ]
@@ -57,8 +60,8 @@ class MainWindow(QWidget):
             resultDict['outputFile'] = self.outputFile
         if self.clickedButtons:
             resultDict['clickedButtons'] = self.clickedButtons
-        self.clearFile('config.json')
-        self.writeToFile('config.json', dumps(resultDict, indent=2))
+        clearFile('config.json')
+        writeToFile('config.json', dumps(resultDict, indent=2))
         event.accept()
 
     def onGameChange(self, gameName):
@@ -139,13 +142,6 @@ class MainWindow(QWidget):
         hLine.move(10, 130)
         hLine.show()
 
-    def isPathExistsOrCreateable(self, pathName):
-        directoryName = path.dirname(pathName) or getcwd()
-        try:
-            return path.exists(pathName) or access(directoryName, W_OK)
-        except OSError:
-            return False
-
     def loadConfig(self):
         try:
             with open('config.json') as myFile:
@@ -153,12 +149,12 @@ class MainWindow(QWidget):
                     data = load(myFile)
                     if data is not None:
                         try:
-                            if data['spoilerLog'] != "" and self.isPathExistsOrCreateable(data['spoilerLog']):
+                            if data['spoilerLog'] != "" and isPathExistsOrCreatable(data['spoilerLog']):
                                 self.spoilerLog = data['spoilerLog']
                         except KeyError:
                             pass
                         try:
-                            if data['outputFile'] != "" and self.isPathExistsOrCreateable(data['outputFile']):
+                            if data['outputFile'] != "" and isPathExistsOrCreatable(data['outputFile']):
                                 self.outputFile = data['outputFile']
                         except KeyError:
                             pass
@@ -187,23 +183,17 @@ class MainWindow(QWidget):
             if buttonToDisable is not None:
                 buttonToDisable.setEnabled(False)
 
-    def printHint(self, buttonText, btn, hintText):
+    def printHint(self, buttonText, btn):
         btn.setEnabled(False)
         self.clickedButtons.append({'buttonText': buttonText})
-        if not self.fileContainsHint(hintText):
-            self.writeToFile(self.outputFile, hintText)
+        hintText = next((x.value for x in self.game.getHints() if x.buttonText == buttonText), "")
+        if not fileContainsText(self.outputFile, hintText):
+            writeToFile(self.outputFile, hintText)
 
-    def fileContainsHint(self, hintText) -> bool:
-        with open(self.outputFile) as f:
-            if hintText in f.read():
-                return True
-        return False
-        
     def resetButtons(self, override):
         reply = QMessageBox.No
         if not override:
-            reply = QMessageBox.question(self, 'Confirm', 'Are you sure you want to reset all buttons?', QMessageBox.Yes | QMessageBox.No,
-                                         QMessageBox.No)
+            reply = QMessageBox.question(self, 'Confirm', 'Are you sure you want to reset all buttons?', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         if override or reply == QMessageBox.Yes:
             self.setAllButtons(True)
             self.clickedButtons = []
@@ -211,23 +201,15 @@ class MainWindow(QWidget):
     def clearOutputFile(self, override):
         reply = QMessageBox.No
         if not override:
-            reply = QMessageBox.question(self, 'Confirm', 'Are you sure you want to clear the output file?', QMessageBox.Yes | QMessageBox.No,
-                                         QMessageBox.No)
+            reply = QMessageBox.question(self, 'Confirm', 'Are you sure you want to clear the output file?', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
         if override or reply == QMessageBox.Yes:
-            self.clearFile(self.outputFile)
+            clearFile(self.outputFile)
 
     def setAllButtons(self, setTo):
         for button in self.buttons:
             thisButton = self.buttons.get(button)
             thisButton.setEnabled(setTo)
         self.resetButton.setEnabled(setTo)
-
-    def clearFile(self, f):
-        open(f, 'w').close()
-
-    def writeToFile(self, f, text):
-        with open(f, 'a') as myFile:
-            myFile.write(text + '  ')
 
     def tryParseLog(self, log):
         try:
@@ -303,20 +285,19 @@ class MainWindow(QWidget):
         hints = self.game.getHints()
         for i in range(len(hints)):
             buttonText = hints[i].getButtonText()
-            hintText = hints[i].getValue()
             x = baseX + (counter % 4) * 220
-            self.createButton(buttonText, hintText, x, y)
+            self.createButton(buttonText, x, y)
             if counter % 4 == 3:
                 y = y + 40
             counter += 1
         self.setFixedSize(880, y)
 
-    def createButton(self, buttonText, hintText, x, y):
+    def createButton(self, buttonText, x, y):
         btn = QPushButton(self)
         btn.setText(buttonText)
         btn.resize(200, 30)
         btn.move(x, y)
-        btn.clicked.connect(lambda this, a=buttonText, b=btn, c=hintText: self.printHint(a, b, c))
+        btn.clicked.connect(lambda this, a=buttonText, b=btn: self.printHint(a, b))
         btn.show()
         self.buttons[buttonText] = btn
 
