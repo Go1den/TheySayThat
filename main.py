@@ -341,6 +341,8 @@ class MainWindow(QWidget):
             if counter % 4 == 3:
                 y = y + 40
             counter += 1
+        if counter % 4 != 0:  # the bottom most row of buttons won't show if it contains fewer than 4 buttons unless we do this
+            y = y + 40
         self.setFixedSize(880, y)
 
     def createButton(self, buttonText, x, y):
