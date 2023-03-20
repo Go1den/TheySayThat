@@ -10,6 +10,7 @@ from fileHelper import isPathExistsOrCreatable, writeToFile, fileContainsText, c
 from game import Game
 from supportedGames.donkeykong64 import DonkeyKong64
 from supportedGames.majorasmask import MajorasMask
+from supportedGames.metroidprime import MetroidPrime
 from supportedGames.ocarinaoftime import OcarinaOfTime
 
 class MainWindow(QWidget):
@@ -20,7 +21,8 @@ class MainWindow(QWidget):
         self.games: list[Game] = [
             DonkeyKong64(),
             OcarinaOfTime(),
-            MajorasMask()
+            MajorasMask(),
+            MetroidPrime()
         ]
 
         self.game: Game = OcarinaOfTime()
