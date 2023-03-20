@@ -10,7 +10,7 @@ The Legend of Zelda: Majora's Mask
 Donkey Kong 64  
 Metroid Prime  
 
-The program has been abstracted to allow support for any video game with a very small Python class definition required to add support.
+The program has been abstracted to allow support for any video game with a very small Python class definition required to add support. The only requirement is that the game needs a spoiler log that can be consistently parsed to obtain the hint information.
 
 ![TheySayThat](https://github.com/Go1den/TheySayThat/blob/main/example.png?raw=true)
 
