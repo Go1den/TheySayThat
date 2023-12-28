@@ -4,7 +4,7 @@
 
 They say that given a spoiler log from one of several popular randomizers, this program allows you to output the contents of hints you've discovered during a playthrough to a text file. If that file is then read by streaming software, it can be displayed on stream in real time, allowing viewers to know all the hints you've received so far.
 
-**Supported Games:**  
+**Supported Randomizers:**  
 The Legend of Zelda: Ocarina of Time  
 The Legend of Zelda: Majora's Mask  
 Donkey Kong 64  
