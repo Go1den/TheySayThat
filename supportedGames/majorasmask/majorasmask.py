@@ -1,0 +1,56 @@
+from game import Game
+from hint import Hint
+
+class MajorasMask(Game):
+
+    def getGameNameText(self) -> str:
+        return "The Legend of Zelda: Majora's Mask"
+
+    def getHintList(self) -> list[Hint]:
+        return [
+            Hint('CanyonDock', None, 'Canyon Dock'),
+            Hint('CanyonRavine', None, 'Canyon Ravine'),
+            Hint('CanyonRoad', None, 'Canyon Road'),
+            Hint('CanyonSpiritHouse', None, 'Canyon Spirit House'),
+            Hint('MilkRoad', None, 'Milk Road'),
+            Hint('MountainPath', None, 'Mountain Path'),
+            Hint('MountainSpringFrog', None, 'Mountain Spring Frog'),
+            Hint('MountainSpringPath', None, 'Mountain Spring Path'),
+            Hint('OceanFortress', None, 'Ocean Fortress'),
+            Hint('OceanZoraGame', None, 'Ocean Zora Game'),
+            Hint('RanchBarn', None, 'Ranch Barn'),
+            Hint('RanchCuccoShack', None, 'Ranch Cucco Shack'),
+            Hint('RanchEntrance', None, 'Ranch Entrance'),
+            Hint('RanchRacetrack', None, 'Ranch Racetrack'),
+            Hint('RanchTree', None, 'Ranch Tree'),
+            Hint('SwampPotionShop', None, 'Swamp Potion Shop'),
+            Hint('SwampRoad', None, 'Swamp Road'),
+            Hint('SwampSpiderHouse', None, 'Swamp Spider House'),
+            Hint('TerminaEast', None, 'Termina East'),
+            Hint('TerminaGossipDrums', None, 'Termina Gossip Drums'),
+            Hint('TerminaGossipGuitar', None, 'Termina Gossip Guitar'),
+            Hint('TerminaGossipLarge', None, 'Termina Gossip Large'),
+            Hint('TerminaGossipPipes', None, 'Termina Gossip Pipes'),
+            Hint('TerminaMilk', None, 'Termina Milk'),
+            Hint('TerminaNorth', None, 'Termina North'),
+            Hint('TerminaObservatory', None, 'Termina Observatory'),
+            Hint('TerminaSouth', None, 'Termina South'),
+            Hint('TerminaWest', None, 'Termina West')
+        ]
+
+    def readFromSpoilerLog(self, f) -> dict:
+        result = dict()
+        with open(f) as myFile:
+            foundGossipStones = False
+            for line in myFile:
+                if "Gossip Stone" in line and "Message" in line:
+                    foundGossipStones = True
+                if foundGossipStones:
+                    if "->" in line and "MoonMask" not in line:
+                        text = line.split('->')
+                        key = text[0].strip()
+                        value = text[1].strip().replace('.', None, '')
+                        result[key] = value
+                    if "TerminaWest" in line:
+                        break
+        return result

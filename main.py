@@ -3,15 +3,17 @@ from json import JSONDecodeError, dumps, load
 from os import getcwd
 from shutil import copyfile
 
+from PyQt5.QtCore import QSize
 from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QFileDialog, QLabel, QMessageBox, QSystemTrayIcon, QComboBox, QFrame
 
-from fileHelper import isPathExistsOrCreatable, writeToFile, fileContainsText, clearFile, readFileToString
+from buttonlayout import ButtonLayout
+from fileHelper import isPathExistsOrCreatable, writeToFile, fileContainsText, clearFile, readFileToString, writeToFileWithChosenIndent
 from game import Game
-from supportedGames.donkeykong64 import DonkeyKong64
-from supportedGames.majorasmask import MajorasMask
-from supportedGames.metroidprime import MetroidPrime
-from supportedGames.ocarinaoftime import OcarinaOfTime
+from supportedGames.dk64.donkeykong64 import DonkeyKong64
+from supportedGames.majorasmask.majorasmask import MajorasMask
+from supportedGames.metroidprime.metroidprime import MetroidPrime
+from supportedGames.ocarinaoftime.ocarinaoftime import OcarinaOfTime
 
 class MainWindow(QWidget):
 
@@ -34,14 +36,17 @@ class MainWindow(QWidget):
         self.setFixedSize(880, 150)
         self.setWindowTitle("TheySayThat by Go1den")
         self.gameDropdown = None
+        self.hintWritingModeDropdown = None
         self.resetButton = None
         self.labelSpoilerLog = None
         self.hintHandlerDropdown = None
         self.labelOutputFile = None
         self.buttons = dict()
+        self.sectionLabels = dict()
         self.spoilerLog = ""
         self.outputFile = (getcwd() + '/output.txt').replace('\\', '/')
-        self.hintHandler = "Filter them"
+        self.hintHandler = "Filter duplicate hints"
+        self.hintWritingMode = "Spaces"
         self.clickedButtons = []
         self.loadConfig()
         self.createDefaultUI()
@@ -64,6 +69,8 @@ class MainWindow(QWidget):
             resultDict['outputFile'] = self.outputFile
         if self.hintHandler:
             resultDict['hintHandler'] = self.hintHandler
+        if self.hintWritingMode:
+            resultDict['hintWritingMode'] = self.hintWritingMode
         if self.clickedButtons:
             resultDict['clickedButtons'] = self.clickedButtons
         clearFile('config.json')
@@ -72,7 +79,7 @@ class MainWindow(QWidget):
 
     def onGameChange(self, gameName):
         self.game = next((x for x in self.games if x.getGameName() == gameName), self.game)
-        self.deleteAllButtons()
+        self.deleteAllButtonsAndSectionLabels()
         self.createButtons()
         if not self.game.isCurrentSpoilerLogValidForGame(self.spoilerLog):
             self.setAllButtons(False)
@@ -84,7 +91,39 @@ class MainWindow(QWidget):
     def onHintHandlerChange(self, hintHandler):
         self.hintHandler = hintHandler
 
+    def onHintWritingModeChange(self, hintWritingMode):
+        self.hintWritingMode = hintWritingMode
+
     def createDefaultUI(self):
+        labelGameDropdown = QLabel(self)
+        labelGameDropdown.setText("Game: ")
+        labelGameDropdown.move(11, 11)
+        labelGameDropdown.show()
+
+        labelHintWritingMode = QLabel(self)
+        labelHintWritingMode.setText("Separate Hints in Output File With: ")
+        labelHintWritingMode.move(451, 11)
+        labelHintWritingMode.show()
+
+        labelHintHandler = QLabel(self)
+        labelHintHandler.setText("Duplicate Hint Behavior: ")
+        labelHintHandler.move(671, 11)
+        labelHintHandler.show()
+
+        hintWritingModes = ["One space", "Two spaces", "Four spaces", "Hyphens", "New lines"]
+        try:
+            indexToSet = hintWritingModes.index(self.hintWritingMode)
+        except ValueError:
+            indexToSet = 0
+            self.hintHandler = "Filter duplicate hints"
+        self.hintWritingModeDropdown = QComboBox(self)
+        self.hintWritingModeDropdown.addItems(hintWritingModes)
+        self.hintWritingModeDropdown.setCurrentIndex(indexToSet)
+        self.hintWritingModeDropdown.currentTextChanged.connect(self.onHintWritingModeChange)
+        self.hintWritingModeDropdown.resize(198, 28)
+        self.hintWritingModeDropdown.move(451, 31)
+        self.hintWritingModeDropdown.show()
+
         gameNames = [x.getGameName() for x in self.games]
         gameNames = sorted(gameNames)
 
@@ -93,13 +132,8 @@ class MainWindow(QWidget):
         self.gameDropdown.setCurrentIndex(gameNames.index(self.game.getGameName()))
         self.gameDropdown.currentTextChanged.connect(self.onGameChange)
         self.gameDropdown.resize(419, 28)
-        self.gameDropdown.move(11, 11)
+        self.gameDropdown.move(11, 31)
         self.gameDropdown.show()
-
-        labelHintHandler = QLabel(self)
-        labelHintHandler.setText("Duplicate Hint Behavior: ")
-        labelHintHandler.move(550, 19)
-        labelHintHandler.show()
 
         hintHandlers = ["Filter duplicate hints", "Count duplicate hints", "Always add every hint"]
         try:
@@ -112,54 +146,54 @@ class MainWindow(QWidget):
         self.hintHandlerDropdown.setCurrentIndex(indexToSet)
         self.hintHandlerDropdown.currentTextChanged.connect(self.onHintHandlerChange)
         self.hintHandlerDropdown.resize(198, 28)
-        self.hintHandlerDropdown.move(671, 11)
+        self.hintHandlerDropdown.move(671, 31)
         self.hintHandlerDropdown.show()
 
         btn = QPushButton(self)
         btn.setText('Select Spoiler Log')
         btn.resize(200, 30)
-        btn.move(10, 50)
+        btn.move(10, 70)
         btn.clicked.connect(self.openSpoilerLog)
         btn.show()
 
         label = QLabel(self)
         label.setText("Current Spoiler Log: ")
-        label.move(220, 50)
+        label.move(220, 70)
         label.show()
 
         self.labelSpoilerLog = QLabel(self)
         self.labelSpoilerLog.setText(self.spoilerLog)
-        self.labelSpoilerLog.move(220, 65)
+        self.labelSpoilerLog.move(220, 85)
         self.labelSpoilerLog.show()
 
         btn2 = QPushButton(self)
         btn2.setText('Select Output File')
         btn2.resize(200, 30)
-        btn2.move(10, 90)
+        btn2.move(10, 110)
         btn2.clicked.connect(self.openOutputFile)
         btn2.show()
 
         label2 = QLabel(self)
         label2.setText("Current Output File: ")
-        label2.move(220, 90)
+        label2.move(220, 110)
         label2.show()
 
         self.labelOutputFile = QLabel(self)
         self.labelOutputFile.setText(self.outputFile)
-        self.labelOutputFile.move(220, 105)
+        self.labelOutputFile.move(220, 125)
         self.labelOutputFile.show()
 
         self.resetButton = QPushButton(self)
         self.resetButton.setText('Reset Buttons')
         self.resetButton.resize(200, 30)
-        self.resetButton.move(670, 50)
+        self.resetButton.move(670, 70)
         self.resetButton.clicked.connect(lambda: self.resetButtons(False))
         self.resetButton.show()
 
         btn4 = QPushButton(self)
         btn4.setText('Clear Output File')
         btn4.resize(200, 30)
-        btn4.move(670, 90)
+        btn4.move(670, 110)
         btn4.clicked.connect(lambda: self.clearOutputFile(False))
         btn4.show()
 
@@ -167,7 +201,7 @@ class MainWindow(QWidget):
         hLine.setFrameShape(QFrame.HLine)
         hLine.setFrameShadow(QFrame.Sunken)
         hLine.resize(860, 4)
-        hLine.move(10, 130)
+        hLine.move(10, 150)
         hLine.show()
 
     def loadConfig(self):
@@ -201,31 +235,47 @@ class MainWindow(QWidget):
                                 self.hintHandler = data['hintHandler']
                         except KeyError:
                             pass
+                        try:
+                            if data['hintWritingMode'] is not None:
+                                self.hintWritingMode = data['hintWritingMode']
+                        except KeyError:
+                            pass
                 except JSONDecodeError:
                     return
         except FileNotFoundError:
             pass
 
     def disableClickedButtons(self):
-        for button in self.clickedButtons:
-            buttonText = button['buttonText']
+        for buttonKey in self.clickedButtons:
             try:
-                buttonToDisable = self.buttons[buttonText]
+                buttonToDisable = self.buttons[buttonKey]
             except KeyError:
                 continue
             if buttonToDisable is not None:
                 buttonToDisable.setEnabled(False)
 
-    def printHint(self, buttonText, btn):
+    def getIndent(self):
+        if self.hintWritingMode == "One space":
+            return " "
+        if self.hintWritingMode == "Four spaces":
+            return "    "
+        if self.hintWritingMode == "Hyphens":
+            return " - "
+        if self.hintWritingMode == "New lines":
+            return "\n"
+        return "  "  # Default is Two spaces
+
+    def printHint(self, btn, buttonKey):
+        indent = self.getIndent()
         btn.setEnabled(False)
-        self.clickedButtons.append({'buttonText': buttonText})
-        hintText = next((x.value for x in self.game.getHints() if x.buttonText == buttonText), "")
+        self.clickedButtons.append(buttonKey)
+        hintText = self.game.getHints()[buttonKey].getValue()
         if self.hintHandler == "Always add every hint":
-            writeToFile(self.outputFile, hintText)
+            writeToFileWithChosenIndent(self.outputFile, hintText, indent)
             return
         hintAlreadyExists = fileContainsText(self.outputFile, hintText)
         if not hintAlreadyExists:
-            writeToFile(self.outputFile, hintText)
+            writeToFileWithChosenIndent(self.outputFile, hintText, indent)
             return
         if self.hintHandler == "Count duplicate hints":
             fileContents = readFileToString(self.outputFile)
@@ -241,7 +291,7 @@ class MainWindow(QWidget):
                 clearFile(self.outputFile)
                 writeToFile(self.outputFile, result.rstrip())
             else:  # Should not be possible
-                writeToFile(self.outputFile, hintText)
+                writeToFileWithChosenIndent(self.outputFile, hintText, indent)
 
     def resetButtons(self, override):
         reply = QMessageBox.No
@@ -332,8 +382,70 @@ class MainWindow(QWidget):
     def createButtons(self):
         if self.game is None:
             return
+        if not self.game.getButtonLayout():
+            self.createLegacyLayout()
+        elif self.game.isRowBasedLayout():
+            self.createRowBasedLayout()
+        else:
+            self.createColumnBasedLayout()
+
+    def createColumnBasedLayout(self):
+        x = 10
+        nextX = 10
+        baseY = 160
+        counter = 0
+        maxEntriesInColumn = 0
+        buttonLayout = self.game.getButtonLayout()
+        currentSection = ButtonLayout("None", 0)
+        hints = self.game.getHints()
+        for i in range(len(hints)):
+            if currentSection.getButtonCount() == 0:
+                x = nextX
+                currentSection = buttonLayout.pop(0)
+                if currentSection.getButtonCount() > maxEntriesInColumn:
+                    maxEntriesInColumn = currentSection.getButtonCount()
+                self.createSectionLabel(currentSection.getLabel(), x, baseY)
+                nextX = x + self.game.getButtonWidth() + self.game.getWidthGapBetweenButtons()
+                y = baseY + 20
+                counter = 0
+            buttonText = hints[i].getButtonText()
+            y = baseY + 20 + (counter % self.game.getMaxButtonsPerRow()) * (self.game.getButtonHeight() + self.game.getHeightGapBetweenButtons())
+            self.createButton(buttonText, x, y, hints[i].getImagePath())
+            currentSection.setButtonCount(currentSection.getButtonCount() - 1)
+            if counter % self.game.getMaxButtonsPerRow() == self.game.getMaxButtonsPerRow() - 1:
+                x = x + self.game.getButtonWidth() + self.game.getWidthGapBetweenButtons()
+            counter += 1
+        if counter % self.game.getMaxButtonsPerRow() != 0:  # the bottom most row of buttons won't show if it contains fewer than max amount of buttons per row unless we do this
+            x = x + self.game.getButtonWidth() + self.game.getWidthGapBetweenButtons()
+        self.setFixedSize(880, baseY + 20 + maxEntriesInColumn * (self.game.getButtonHeight() + self.game.getHeightGapBetweenButtons()))
+
+    def createRowBasedLayout(self):
         baseX = 10
-        y = 140
+        y = 160
+        counter = 0
+        buttonLayout = self.game.getButtonLayout()
+        currentSection = ButtonLayout("None", 0)
+        hints = self.game.getHints()
+        for i in range(len(hints)):
+            if currentSection.getButtonCount() == 0:
+                currentSection = buttonLayout.pop(0)
+                self.createSectionLabel(currentSection.getLabel(), baseX, y)
+                y = y + 20
+                counter = 0
+            buttonText = hints[i].getButtonText()
+            x = baseX + (counter % self.game.getMaxButtonsPerRow()) * (self.game.getButtonWidth() + self.game.getWidthGapBetweenButtons())
+            self.createButton(buttonText, x, y, hints[i].getImagePath())
+            currentSection.setButtonCount(currentSection.getButtonCount() - 1)
+            if counter % self.game.getMaxButtonsPerRow() == self.game.getMaxButtonsPerRow() - 1:
+                y = y + self.game.getButtonHeight() + self.game.getHeightGapBetweenButtons()
+            counter += 1
+        if counter % self.game.getMaxButtonsPerRow() != 0:  # the bottom most row of buttons won't show if it contains fewer than max amount of buttons per row unless we do this
+            y = y + self.game.getButtonHeight() + self.game.getHeightGapBetweenButtons()
+        self.setFixedSize(880, y)
+
+    def createLegacyLayout(self):
+        baseX = 10
+        y = 160
         counter = 0
         hints = self.game.getHints()
         for i in range(len(hints)):
@@ -347,19 +459,36 @@ class MainWindow(QWidget):
             y = y + 40
         self.setFixedSize(880, y)
 
-    def createButton(self, buttonText, x, y):
-        btn = QPushButton(self)
-        btn.setText(buttonText)
-        btn.resize(200, 30)
-        btn.move(x, y)
-        btn.clicked.connect(lambda this, a=buttonText, b=btn: self.printHint(a, b))
-        btn.show()
-        self.buttons[buttonText] = btn
+    def createSectionLabel(self, text, x, y):
+        labelSection = QLabel(self)
+        labelSection.setText(text)
+        labelSection.move(x, y)
+        labelSection.show()
+        self.sectionLabels[text] = labelSection
 
-    def deleteAllButtons(self):
+    def createButton(self, buttonText, x, y, imagePath=None):
+        btn = QPushButton(self)
+        btn.resize(self.game.getButtonWidth(), self.game.getButtonHeight())
+        if imagePath:
+            btn.setIcon(QIcon(getcwd() + imagePath))
+            btn.setIconSize(QSize(self.game.getButtonWidth(), self.game.getButtonHeight()))
+        else:
+            btn.setText(buttonText)
+        btn.move(x, y)
+        buttonKey = len(self.buttons)
+        btn.clicked.connect(lambda this, a=btn, b=buttonKey: self.printHint(a, b))
+        btn.show()
+        self.buttons[buttonKey] = btn
+
+    def deleteAllButtonsAndSectionLabels(self):
         for button in self.buttons:
+            self.buttons.get(button).hide()
             self.buttons.get(button).deleteLater()
+        for label in self.sectionLabels:
+            self.sectionLabels.get(label).hide()
+            self.sectionLabels.get(label).deleteLater()
         self.buttons = dict()
+        self.sectionLabels = dict()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

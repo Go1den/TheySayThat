@@ -1,8 +1,11 @@
 class Hint:
 
-    def __init__(self, key="", buttonText="", sequenceNum=999, value=""):
+    def __init__(self, key="", imagePath=None, buttonText="", sequenceNum=999, value=""):
         # The key of this hint as it appears in the spoiler log
         self.key = key
+
+        # The imagePath, if there is one, to be used on the button in the program for this hint
+        self.imagePath = imagePath
 
         # The hint text as it appears in the spoiler log
         self.value = value
@@ -23,6 +26,12 @@ class Hint:
 
     def getKey(self):
         return self.key
+
+    def setImagePath(self, imagePath):
+        self.imagePath = imagePath
+
+    def getImagePath(self):
+        return self.imagePath
 
     def setValue(self, value):
         self.value = value

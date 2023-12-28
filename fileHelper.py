@@ -11,6 +11,10 @@ def writeToFile(f, text):
     with open(f, 'a') as myFile:
         myFile.write(text + '  ')
 
+def writeToFileWithChosenIndent(f, text, indent):
+    with open(f, 'a') as myFile:
+        myFile.write(text + indent)
+
 def fileContainsText(file, text) -> bool:
     with open(file) as f:
         if text in f.read():

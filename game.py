@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 from copy import deepcopy
 
+from buttonlayout import ButtonLayout
 from hint import Hint
 
 class Game(ABC):
@@ -17,6 +18,63 @@ class Game(ABC):
             str: Name of the video game.
         """
         return "Game Name Not Found"
+
+    # Override in child class if you wish to modify the default
+    def isRowBasedLayout(self) -> bool:
+        """
+        Returns:
+            bool: Boolean indicating whether the buttons should be added to the layout in rows (True) or columns (False). Default is True for row based layout.
+        """
+        return True
+
+    # Override in child class if you wish to modify the default
+    def getMaxButtonsPerRow(self) -> int:
+        """
+        Returns:
+            int: The maximum number of buttons allowed in any row of the layout. The default layout only permits 4 buttons in a row, but this can be overridden here.
+        """
+        return 4
+
+    # Override in child class if you wish to modify the default
+    def getButtonHeight(self) -> int:
+        """
+        Returns:
+            int: The height (in pixels) of each button in the layout. By default, this is 30 pixels.
+        """
+        return 30
+
+    # Override in child class if you wish to modify the default
+    def getButtonWidth(self) -> int:
+        """
+        Returns:
+            int: The width (in pixels) of each button in the layout. By default, this is 200 pixels.
+        """
+        return 200
+
+    # Override in child class if you wish to modify the default
+    def getWidthGapBetweenButtons(self) -> int:
+        """
+        Returns:
+            int: The width (in pixels) of the gap between each button in a row. By default, this is 20 pixels.
+        """
+        return 20
+
+    # Override in child class if you wish to modify the default
+    def getHeightGapBetweenButtons(self) -> int:
+        """
+        Returns:
+            int: The height (in pixels) of the gap between each button in a column. By default, this is 10 pixels.
+        """
+        return 10
+
+    # Override in child class if you wish to modify the default
+    def getButtonLayout(self) -> list[ButtonLayout]:
+        """
+        Returns:
+            list[ButtonLayout]: A list of button layout objects indicating how many buttons you want in each section of the layout.
+            Each ButtonLayout object specifies a label for that section of the layout, as well as how many buttons will appear in that section.
+        """
+        return []
 
     @abstractmethod  # Must be implemented in a new game class
     def getHintList(self) -> list[Hint]:
