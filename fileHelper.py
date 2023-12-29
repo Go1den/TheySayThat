@@ -13,7 +13,10 @@ def writeToFile(f, text):
 
 def writeToFileWithChosenIndent(f, text, indent):
     with open(f, 'a') as myFile:
-        myFile.write(text + indent)
+        if indent is not None:
+            myFile.write(text + indent)
+        else:
+            myFile.write(text)
 
 def fileContainsText(file, text) -> bool:
     with open(file) as f:

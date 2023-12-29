@@ -289,7 +289,7 @@ class MainWindow(QWidget):
                 else:
                     result = fileContents[:checkIndex] + ' (x2)' + fileContents[checkIndex:]
                 clearFile(self.outputFile)
-                writeToFileWithChosenIndent(self.outputFile, result.rstrip(), indent)
+                writeToFileWithChosenIndent(self.outputFile, result, None)
             else:  # Should not be possible
                 writeToFileWithChosenIndent(self.outputFile, hintText, indent)
 
