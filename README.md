@@ -10,10 +10,18 @@ They say that given a spoiler log from one of several popular randomizers, this 
 [Donkey Kong 64 (v2.0)](https://dk64randomizer.com/)    
 [Metroid Prime](https://randovania.github.io/)  
 
-The program has been abstracted to allow support for any video game with a very small Python class definition required to add support. The only requirement is that the game needs a spoiler log that can be consistently parsed to obtain the hint information.
+TheySayThat is designed to be a universal tool for hint display. Adding a new randomizer into the program requires only a simple class definition and, optionally, images for the buttons. 
 
-![TheySayThat](https://github.com/Go1den/TheySayThat/blob/main/example.png?raw=true)
+The only major requirement is that supported games must have a spoiler log that can be consistently parsed to obtain the hint information.
+
+If you know of a randomizer that is not covered by TheySayThat, but that DOES have hint information stored in its spoiler logs, please contact me and I will add it.
+
+If you want your favorite randomizer to support TheySayThat, please let the developers of that randomizer know that their spoiler logs need to contain hint information!
+
+![TheySayThat](https://github.com/Go1den/TheySayThat/blob/main/example3.png?raw=true)
 
 ![TheySayThat2](https://github.com/Go1den/TheySayThat/blob/main/example2.png?raw=true)
+
+![TheySayThat3](https://github.com/Go1den/TheySayThat/blob/main/example4.png?raw=true)
 
 Note: This has only been tested on Windows 10. Try it elsewhere at your own risk.
