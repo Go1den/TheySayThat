@@ -10,8 +10,7 @@ They say that given a spoiler log from one of several popular randomizers, this 
 [Donkey Kong 64 (v2.0)](https://dk64randomizer.com/)    
 [Metroid Prime](https://randovania.github.io/)  
 
-TheySayThat is designed to be a universal tool for hint display. Adding a new randomizer into the program requires only a simple class definition and, optionally, images for the buttons. 
-
+TheySayThat is designed to be a universal tool for hint display. Adding a new randomizer into the program requires only a simple class definition and, optionally, images for the buttons.
 The only major requirement is that supported games must have a spoiler log that can be consistently parsed to obtain the hint information.
 
 If you know of a randomizer that is not covered by TheySayThat, but that DOES have hint information stored in its spoiler logs, please contact me and I will add it.
