@@ -60,7 +60,8 @@ class OcarinaOfTime(Game):
         with open(f) as myFile:
             data = load(myFile)
         gossipStoneJson = dict(data['gossip_stones'].items())
-        result = {k: v['text'].replace('#', '') for k, v in gossipStoneJson.items()}
+        result = {k: v['text'].replace('#', '').replace('They say that ', '') for k, v in gossipStoneJson.items()}
+        result = {k: v[0].upper() + v[1:] for k, v in result.items()}
         return result
 
     def getButtonLayout(self) -> list[ButtonLayout]:
