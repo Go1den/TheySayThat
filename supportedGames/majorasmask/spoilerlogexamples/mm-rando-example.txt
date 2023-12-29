@@ -1,0 +1,455 @@
+Version:          1.15.2.1
+Settings:         {
+  "StrayFairyMode": "Default",
+  "DoubleArcheryRewards": false,
+  "UpdateShopAppearance": true,
+  "AddSongs": false,
+  "BossKeyMode": "Default",
+  "SmallKeyMode": "DoorsOpen",
+  "SpeedupLabFish": true,
+  "BossRemainsMode": "Default",
+  "PriceMode": "None",
+  "UserLogicFileName": "",
+  "CloseCows": true,
+  "ArrowCycling": true,
+  "CritWiggleDisable": false,
+  "DrawHash": true,
+  "ElegySpeedup": true,
+  "FastPush": true,
+  "IceTrapQuirks": false,
+  "UpdateWorldModels": true,
+  "OcarinaUnderwater": true,
+  "QuestItemStorage": true,
+  "ContinuousDekuHopping": false,
+  "ProgressiveUpgrades": true,
+  "TargetHealthBar": false,
+  "ClimbMostSurfaces": false,
+  "FreeScarecrow": false,
+  "FillWallet": false,
+  "AutoInvert": "Never",
+  "HiddenRupeesSparkle": false,
+  "LogicMode": "Casual",
+  "ItemPlacement": "Bespoke",
+  "EnabledTricks": [
+    "Exit Ocean Spider House without Goron",
+    "Lensless Chests",
+    "Lensless Walking",
+    "Lensless Walls/Ceilings",
+    "Pinnacle Rock without Seahorse",
+    "Run Through Poisoned Water",
+    "Scarecrow's Song",
+    "Take Damage",
+    "WFT 2nd Floor Skip"
+  ],
+  "RandomizeDungeonEntrances": false,
+  "RandomizeEnemies": false,
+  "StartingItemMode": "None",
+  "CustomItemListString": "--------------------40c-80000000----21ffff-ffffffff-ffffffff-f0000000-7bbeeffa-7fffffff-e6f1fffe-ffffffff",
+  "CustomStartingItemListString": "1fbfc-5800000-",
+  "CustomJunkLocationsString": "-------------------------200000-----400000--f000",
+  "IceTraps": "None",
+  "IceTrapAppearance": "MajorItems",
+  "DamageMode": "Default",
+  "DamageEffect": "Default",
+  "MovementMode": "Default",
+  "FloorType": "Default",
+  "NutandStickDrops": "Default",
+  "ClockSpeed": "Default",
+  "HideClock": false,
+  "BlastMaskCooldown": "Default",
+  "EnableSunsSong": false,
+  "AllowFierceDeityAnywhere": false,
+  "ByoAmmo": false,
+  "DeathMoonCrash": false,
+  "HookshotAnySurface": false,
+  "ShortenCutsceneSettings": {
+    "General": "BlastMaskThief, BoatArchery, FishermanGame, MilkBarPerformance, HungryGoron, TatlInterrupts, FasterBankText, GoronVillageOwl, AutomaticCredits, EverythingElse",
+    "BossIntros": "Odolwa, Goht, Gyorg, Majora, IgosDuIkana, Gomess"
+  },
+  "QuickTextEnabled": true,
+  "Character": "LinkMM",
+  "GossipHintStyle": "Competitive",
+  "GaroHintStyle": "Default",
+  "MixGossipAndGaroHints": false,
+  "FreeHints": true,
+  "FreeGaroHints": false,
+  "ClearHints": true,
+  "ClearGaroHints": false,
+  "HintsIndicateImportance": false,
+  "PreventDowngrades": true,
+  "UpdateChests": false,
+  "FixEponaSword": true,
+  "EnablePictoboxSubject": true,
+  "LenientGoronSpikes": false,
+  "SpeedupBeavers": true,
+  "SpeedupDampe": true,
+  "SpeedupDogRace": true,
+  "SpeedupBank": true
+}
+Seed:             1224225531
+
+ Location                                              Item
+
+ Misc
+Starting Item                                      -> Recovery Heart
+Starting Song                                      -> Oath to Order*
+
+ South Clock Town
+Clock Tower Entrance                               -> Gibdo Mask*
+Clock Town Scrub Trade                             -> Keaton Mask**
+Postbox                                            -> Red Rupee
+South Clock Town Final Day Chest                   -> Goron Mask**
+South Clock Town Straw Roof Chest                  -> Purple Rupee
+
+ North Clock Town
+Bombers' Hide and Seek                             -> Empty Bottle*
+Clock Town Map Purchase                            -> Blast Mask*
+Deku Playground Any Day                            -> Bow Upgrade*
+Keaton Quiz                                        -> Hookshot*
+North Clock Town Tree                              -> Wallet Upgrade
+Old Lady                                           -> Bunny Hood
+Postbox                                            -> Red Rupee
+Town Great Fairy                                   -> Lens of Truth**
+Town Great Fairy Non-Human                         -> Bottle of Red Potion*
+Woodfall Map Purchase                              -> Silver Rupee
+
+ East Clock Town
+Bombers' Hideout Chest                             -> Powder Keg**
+East Clock Town Chest                              -> Magic Bean
+Gorman                                             -> Red Rupee
+Honey and Darling Any Day                          -> Gold Rupee
+Madame Aroma in Bar                                -> Piece of Heart
+Madame Aroma in Office                             -> Red Rupee
+Mayor                                              -> Red Rupee
+Postbox                                            -> Red Rupee
+Postman's Freedom Reward                           -> Red Rupee
+Town Archery #1                                    -> Sword Upgrade
+Treasure Chest Game Goron                          -> Silver Rupee
+
+ Stock Pot Inn
+Anju and Kafei                                     -> Blue Rupee
+Grandma Long Story                                 -> Purple Rupee
+Grandma Short Story                                -> Fire Arrow**
+Inn Guest Room Chest                               -> Piece of Heart
+Inn Reservation                                    -> Red Rupee
+Inn Staff Room Chest                               -> Blue Rupee
+Midnight Meeting                                   -> Bombchu
+Toilet Hand                                        -> Bremen Mask
+
+ West Clock Town
+All-Night Mask Purchase                            -> Mountain Title Deed
+Bank Reward #1                                     -> Red Rupee
+Bank Reward #2                                     -> Purple Rupee
+Bank Reward #3                                     -> Piece of Heart
+Big Bomb Bag Purchase                              -> Red Rupee
+Bomb Bag Purchase                                  -> Silver Rupee
+Postman's Game                                     -> Red Rupee
+Rosa Sisters                                       -> Red Rupee
+Swordsman's School                                 -> Silver Rupee
+
+ Laundry Pool
+Curiosity Shop Man #1                              -> Red Rupee
+Curiosity Shop Man #2                              -> Red Rupee
+Guru Guru                                          -> Wallet Upgrade
+Kafei                                              -> 10 Bombchu
+
+ Termina Field
+Astronomy Telescope                                -> Piece of Heart
+Bio Baba Grotto                                    -> Piece of Heart
+Business Scrub Purchase                            -> Great Fairy's Mask
+Dodongo Grotto                                     -> Purple Rupee
+Gossip Stones                                      -> Purple Rupee
+Kamaro                                             -> Piece of Heart
+Peahat Grotto                                      -> Mask of Truth*
+Termina Field Grass Chest                          -> Pendant of Memories
+Termina Field Grass Grotto                         -> Red Rupee
+Termina Field Pillar Grotto                        -> Piece of Heart
+Termina Field Stump Chest                          -> Mask of Scents*
+Termina Field Underwater Chest                     -> Circus Leader's Mask
+
+ Road to Southern Swamp
+Path to Swamp Grotto                               -> Piece of Heart
+Path to Swamp Tree                                 -> Red Rupee
+Snowhead Map Purchase                              -> Silver Rupee
+Swamp Archery #1                                   -> Captain's Hat
+Woodfall Map Purchase                              -> Silver Rupee
+
+ Southern Swamp
+Biggest Bomb Bag Purchase                          -> Piece of Heart
+Boat Archery                                       -> Bottle of Gold Dust
+Kotake                                             -> Moon's Tear**
+Koume                                              -> Piece of Heart
+Mystery Woods Grotto                               -> Red Rupee
+Near Swamp Spider House Grotto                     -> Silver Rupee
+Pictograph Contest Winner                          -> Piece of Heart
+Swamp Scrub Trade                                  -> Romani's Mask
+Swamp Spider House Reward                          -> Bombchu
+Swamp Tourist Center Roof                          -> Silver Rupee
+
+ Deku Palace
+Bean Grotto                                        -> Red Rupee
+Bean Man                                           -> Heart Container
+Butler                                             -> Piece of Heart
+Deku Palace West Garden                            -> Silver Rupee
+Imprisoned Monkey                                  -> New Wave Bossa Nova**
+
+ Woodfall
+Behind Woodfall Owl Chest                          -> Room Key
+Entrance to Woodfall Chest                         -> Bow Upgrade*
+Woodfall Bridge Chest                              -> Bombchu
+Woodfall Great Fairy                               -> Red Rupee
+
+ Woodfall Temple
+Boss Blue Warp                                     -> Epona's Song
+Hero's Bow Chest                                   -> Red Rupee
+Odolwa Heart Container                             -> Piece of Heart
+Woodfall Compass Chest                             -> Piece of Heart
+Woodfall Map Chest                                 -> Piece of Heart
+Woodfall Small Key Chest                           -> Red Rupee
+
+ Mountain Village
+Darmani                                            -> Piece of Heart
+Hungry Goron                                       -> Bomb Bag Upgrade*
+Keaton Quiz                                        -> Hookshot
+Mountain Smithy Day 1                              -> Red Rupee
+Mountain Smithy Day 2                              -> Postman's Hat
+Mountain Spring Grotto                             -> Heart Container
+Mountain Waterfall Chest                           -> Red Rupee
+
+ Twin Islands
+Goron Race                                         -> Piece of Heart
+Goron Racetrack Grotto                             -> Magic Power Upgrade*
+Hot Spring Water Grotto                            -> Great Fairy's Sword
+Romani Ranch Map Purchase                          -> Deku Mask
+Snowhead Map Purchase                              -> Silver Rupee
+Twin Islands Cave Chest                            -> Mirror Shield*
+Twin Islands Underwater Ramp Chest                 -> Empty Bottle*
+
+ Goron Village
+Baby Goron                                         -> Elegy of Emptiness*
+Biggest Bomb Bag Purchase                          -> Piece of Heart
+Goron Village Ledge                                -> Red Rupee
+Lens Cave Invisible Chest                          -> Purple Rupee
+Lens Cave Rock Chest                               -> Red Rupee
+Lens of Truth Chest                                -> Purple Rupee
+Mountain Scrub Trade                               -> Blue Rupee
+Powder Keg Challenge                               -> Red Rupee
+
+ Path to Snowhead
+Path to Snowhead Grotto                            -> Swamp Title Deed
+Path to Snowhead Pillar                            -> Zora Mask**
+
+ Snowhead
+Snowhead Great Fairy                               -> Silver Rupee
+
+ Snowhead Temple
+Boss Blue Warp                                     -> Epona's Song**
+Fire Arrow Chest                                   -> Letter to Kafei
+Goht Heart Container                               -> Pictograph Box
+Snowhead Block Room Chest                          -> Red Rupee
+Snowhead Bridge Room Chest                         -> All-Night Mask**
+Snowhead Compass Chest                             -> Purple Rupee
+Snowhead Icicle Room Chest                         -> Purple Rupee
+Snowhead Map Chest                                 -> Milk Bottle*
+
+ Milk Road
+Gorman Bros Race                                   -> Red Rupee
+Great Bay Map Purchase                             -> Piece of Heart
+Keaton Quiz                                        -> Hookshot*
+Romani Ranch Map Purchase                          -> Deku Mask**
+
+ Romani Ranch
+Aliens Defense                                     -> Red Rupee
+Cremia                                             -> Giant's Mask*
+Dog Race                                           -> Magic Power Upgrade*
+Doggy Racetrack Roof Chest                         -> Stone Mask
+Grog                                               -> Magic Bean
+Romani's Game                                      -> Goron Lullaby**
+
+ Great Bay Coast
+Baby Zoras                                         -> Sonata of Awakening*
+Fisherman Game                                     -> Red Rupee
+Great Bay Coast Grotto                             -> Piece of Heart
+Great Bay Coast Ledge                              -> Red Rupee
+Great Bay Map Purchase                             -> Piece of Heart
+Lab Fish                                           -> Red Rupee
+Mikau                                              -> Piece of Heart
+Ocean Spider House Chest                           -> Piece of Heart
+Ocean Spider House Day 1 Reward                    -> Piece of Heart
+Stone Tower Map Purchase                           -> Purple Rupee
+
+ Zora Cape
+Beaver Race #1                                     -> Purple Rupee
+Ocean Great Fairy                                  -> Purple Rupee
+Zora Cape Grotto                                   -> Red Rupee
+Zora Cape Ledge With Tree Chest                    -> Red Rupee
+Zora Cape Ledge Without Tree Chest                 -> Land Title Deed
+Zora Cape Like-Like                                -> Red Rupee
+Zora Cape Underwater Chest                         -> Piece of Heart
+
+ Zora Hall
+Evan                                               -> Red Rupee
+Lulu's Room Ledge                                  -> Piece of Heart
+Ocean Scrub Trade                                  -> Red Rupee
+Zora Hall Stage Lights                             -> Piece of Heart
+
+ Pirates' Fortress Exterior
+Pirates' Fortress Exterior Corner Chest            -> Piece of Heart
+Pirates' Fortress Exterior Log Chest               -> Double Defense
+Pirates' Fortress Exterior Sand Chest              -> Piece of Heart
+
+ Pirates' Fortress Sewer
+Pirates' Fortress Cage                             -> Piece of Heart
+Pirates' Fortress Cage Room Deep Chest             -> Bomb Bag Upgrade
+Pirates' Fortress Cage Room Shallow Chest          -> Heart Container
+Pirates' Fortress Maze Chest                       -> Red Rupee
+
+ Pirates' Fortress Interior
+Hookshot Chest                                     -> Silver Rupee
+Pirates' Fortress Interior Guard Room Chest        -> 5 Bombchu
+Pirates' Fortress Interior Lower Chest             -> Purple Rupee
+Pirates' Fortress Interior Tank Chest              -> Don Gero's Mask
+Pirates' Fortress Interior Upper Chest             -> Bomb Bag Upgrade
+
+ Pinnacle Rock
+Pinnacle Rock Lower Chest                          -> Purple Rupee
+Pinnacle Rock Upper Chest                          -> Garo's Mask*
+Seahorses                                          -> Piece of Heart
+
+ Great Bay Temple
+Boss Blue Warp                                     -> Epona's Song
+Great Bay Compass Chest                            -> Piece of Heart
+Great Bay Map Chest                                -> Piece of Heart
+Great Bay Small Key Chest                          -> Heart Container
+Gyorg Heart Container                              -> Bombchu
+Ice Arrow Chest                                    -> Ocean Title Deed**
+
+ Road to Ikana
+Invisible Soldier                                  -> Red Rupee
+Path to Ikana Grotto                               -> 5 Bombchu
+Path to Ikana Pillar Chest                         -> Ice Arrow**
+
+ Ikana Graveyard
+Captain Keeta's Chest                              -> Red Rupee
+Dampe Digging                                      -> Bow Upgrade
+Day 1 Grave Bats                                   -> Piece of Heart
+Day 1 Grave Tablet                                 -> Song of Healing
+Ikana Graveyard Grotto                             -> Piece of Heart
+Iron Knuckle Chest                                 -> Couple's Mask
+
+ Ikana Canyon
+Canyon Scrub Trade                                 -> Light Arrow**
+Clock Town Map Purchase                            -> Blast Mask
+Ikana Canyon Ledge                                 -> Piece of Heart
+Ikana Great Fairy                                  -> Red Rupee
+Pamela's Father                                    -> Bombers' Notebook
+Poe Hut                                            -> Red Rupee
+Secret Shrine Grotto                               -> Piece of Heart
+Stone Tower Map Purchase                           -> Purple Rupee
+
+ Beneath the Well
+Mirror Shield Chest                                -> Bombchu
+Well Left Path Chest                               -> Piece of Heart
+Well Right Path Chest                              -> Silver Rupee
+
+ Ikana Castle
+Ikana Castle Pillar                                -> Letter to Mama
+Ikana King                                         -> Song of Storms*^
+
+ Stone Tower
+Inverted Stone Tower Left Chest                    -> Red Rupee
+Inverted Stone Tower Middle Chest                  -> Blue Rupee
+Inverted Stone Tower Right Chest                   -> Sword Upgrade
+
+ Stone Tower Temple
+Boss Blue Warp                                     -> Epona's Song
+Giant's Mask Chest                                 -> Red Rupee
+Light Arrow Chest                                  -> Red Rupee
+Stone Tower Armos Room Chest                       -> Piece of Heart
+Stone Tower Compass Chest                          -> Bottle of Chateau Romani*
+Stone Tower Death Armos Maze Chest                 -> Piece of Heart
+Stone Tower Eyegore Room Chest                     -> Piece of Heart
+Stone Tower Map Chest                              -> Spin Attack Mastery
+Stone Tower Updraft Room Chest                     -> Fierce Deity's Mask*
+Twinmold Heart Container                           -> Blue Rupee
+
+ Secret Shrine
+Secret Shrine Dinolfos Chest                       -> Kamaro's Mask
+Secret Shrine Final Chest                          -> Kafei's Mask
+Secret Shrine Garo Master Chest                    -> Piece of Heart
+Secret Shrine Wart Chest                           -> Piece of Heart
+Secret Shrine Wizzrobe Chest                       -> Piece of Heart
+
+ The Moon
+Majora Child                                       -> Purple Rupee
+
+
+ Gossip Stone                 Message
+CanyonDock                -> They say Bank Reward 3 holds a Piece of Heart...
+CanyonRavine              -> Apparently Stone Tower is a foolish choice...
+CanyonRoad                -> It appears Gossip Stones possesses a Purple Rupee...
+CanyonSpiritHouse         -> Apparently North Clock Town is on the Way of the Hero...
+MilkRoad                  -> I hear Deku Palace is on the Way of the Hero...
+MoonMaskAllNight          -> Apparently Snowhead Bridge Room Chest conceals an All-Night Mask...
+MoonMaskAllNightClear     -> It appears Snowhead Bridge Room Chest leads to an All-Night Mask...
+MoonMaskBlast             -> It seems Clock Town Map Purchase holds a Blast Mask...
+MoonMaskBlastClear        -> I hear Clock Town Map Purchase conceals a Blast Mask...
+MoonMaskBremen            -> Apparently Toilet Hand brings a Bremen Mask...
+MoonMaskBremenClear       -> It appears Toilet Hand yields a Bremen Mask...
+MoonMaskBunnyHood         -> They say Old Lady brings a Bunny Hood...
+MoonMaskBunnyHoodClear    -> They say Old Lady yields a Bunny Hood...
+MoonMaskCaptainHat        -> It appears Swamp Archery 1 conceals the Captain's Hat...
+MoonMaskCaptainHatClear   -> It appears Swamp Archery 1 yields the Captain's Hat...
+MoonMaskCircusLeader      -> It seems Termina Field Underwater Chest brings the Circus Leader's Mask...
+MoonMaskCircusLeaderClear -> I hear Termina Field Underwater Chest holds the Circus Leader's Mask...
+MoonMaskCouple            -> Apparently Iron Knuckle Chest holds the Couple's Mask...
+MoonMaskCoupleClear       -> Apparently Iron Knuckle Chest brings the Couple's Mask...
+MoonMaskDonGero           -> It appears Pirates' Fortress Interior Tank Chest conceals Don Gero's Mask...
+MoonMaskDonGeroClear      -> They say Pirates' Fortress Interior Tank Chest brings Don Gero's Mask...
+MoonMaskGaro              -> Apparently Pinnacle Rock Upper Chest holds the Garo's Mask...
+MoonMaskGaroClear         -> It seems Pinnacle Rock Upper Chest brings the Garo's Mask...
+MoonMaskGiant             -> It appears Cremia holds the Giant's Mask...
+MoonMaskGiantClear        -> It seems Cremia holds the Giant's Mask...
+MoonMaskGibdo             -> It seems Clock Tower Entrance possesses the Gibdo Mask...
+MoonMaskGibdoClear        -> It appears Clock Tower Entrance yields the Gibdo Mask...
+MoonMaskGreatFairy        -> I hear Business Scrub Purchase conceals the Great Fairy's Mask...
+MoonMaskGreatFairyClear   -> Apparently Business Scrub Purchase possesses the Great Fairy's Mask...
+MoonMaskKafei             -> It appears Secret Shrine Final Chest leads to Kafei's Mask...
+MoonMaskKafeiClear        -> I hear Secret Shrine Final Chest leads to Kafei's Mask...
+MoonMaskKamaro            -> It appears Secret Shrine Dinolfos Chest possesses Kamaro's Mask...
+MoonMaskKamaroClear       -> It seems Secret Shrine Dinolfos Chest leads to Kamaro's Mask...
+MoonMaskKeaton            -> Apparently Clock Town Scrub Trade possesses a Keaton Mask...
+MoonMaskKeatonClear       -> It appears Clock Town Scrub Trade holds a Keaton Mask...
+MoonMaskPostmanHat        -> It appears Mountain Smithy Day 2 brings a Postman's Hat...
+MoonMaskPostmanHatClear   -> It seems Mountain Smithy Day 2 brings a Postman's Hat...
+MoonMaskRomani            -> I hear Swamp Scrub Trade leads to Romani's Mask...
+MoonMaskRomaniClear       -> Apparently Swamp Scrub Trade conceals Romani's Mask...
+MoonMaskScents            -> They say Termina Field Stump Chest brings a Mask of Scents...
+MoonMaskScentsClear       -> I hear Termina Field Stump Chest holds a Mask of Scents...
+MoonMaskStone             -> They say Doggy Racetrack Roof Chest possesses a Stone Mask...
+MoonMaskStoneClear        -> It appears Doggy Racetrack Roof Chest leads to a Stone Mask...
+MoonMaskTruth             -> It appears Peahat Grotto yields the Mask of Truth...
+MoonMaskTruthClear        -> They say Peahat Grotto conceals the Mask of Truth...
+MountainPath              -> I hear Deku Palace is on the Way of the Hero...
+MountainSpringFrog        -> Apparently Ranch Sisters Defense holds a Red Rupee then the Giant's Mask...
+MountainSpringPath        -> Apparently Stone Tower is a foolish choice...
+OceanFortress             -> It seems Butler yields a Piece of Heart...
+OceanZoraGame             -> They say Dampe Digging conceals a Bow Upgrade...
+RanchBarn                 -> They say Gossip Stones holds a Purple Rupee...
+RanchCuccoShack           -> I hear Ocean Spider House Day 1 Reward conceals a Piece of Heart...
+RanchEntrance             -> I hear Swamp Spider House Reward leads to a Bombchu...
+RanchRacetrack            -> I hear Bank Reward 3 leads to a Piece of Heart...
+RanchTree                 -> It appears North Clock Town is on the Way of the Hero...
+SwampPotionShop           -> It appears Boat Archery leads to a Bottle of Gold Dust...
+SwampRoad                 -> It seems West Clock Town is a foolish choice...
+SwampSpiderHouse          -> It seems Ocean Spider House Day 1 Reward conceals a Piece of Heart...
+TerminaEast               -> I hear Goron Village is foolish except for its song...
+TerminaGossipDrums        -> Apparently Butler leads to a Piece of Heart...
+TerminaGossipGuitar       -> I hear Goron Village is foolish except for its song...
+TerminaGossipLarge        -> They say Boat Archery conceals a Bottle of Gold Dust...
+TerminaGossipPipes        -> They say West Clock Town is a foolish choice...
+TerminaMilk               -> It appears Ranch Sisters Defense yields a Red Rupee then the Giant's Mask...
+TerminaNorth              -> I hear Dampe Digging conceals a Bow Upgrade...
+TerminaObservatory        -> It seems Romani Ranch is on the Way of the Hero...
+TerminaSouth              -> Apparently Swamp Spider House Reward holds a Bombchu...
+TerminaWest               -> It seems Romani Ranch is on the Way of the Hero...

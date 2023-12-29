@@ -20,6 +20,22 @@ class Game(ABC):
         return "Game Name Not Found"
 
     # Override in child class if you wish to modify the default
+    def isUsingTooltips(self) -> bool:
+        """
+        Returns:
+            bool: Boolean indicating whether buttons with images should show tooltips when hovered over. Default is True.
+        """
+        return True
+
+    # Override in child class if you wish to modify the default
+    def isUsingSectionHeaders(self) -> bool:
+        """
+        Returns:
+            bool: Boolean indicating whether each section of images will have a text header or not. Default is True. If false, header titles will be ignored.
+        """
+        return True
+
+    # Override in child class if you wish to modify the default
     def isRowBasedLayout(self) -> bool:
         """
         Returns:
@@ -152,7 +168,8 @@ class Game(ABC):
                     self.hints[idx].setValue(self.hintDict.get(entry))
             self.hints.sort(key=lambda x: x.sequenceNum)
             return True
-        except:
+        except Exception as e:
+            print(e)
             self.hints = temp
             return False
 
@@ -165,12 +182,15 @@ class Game(ABC):
     def allKeysHaveHints(self) -> bool:
         for hint in self.hints:
             if hint.value is None or hint.value == "":
+                print(hint.value)
                 return False
         return True
 
     def isCurrentSpoilerLogValidForGame(self, log):
         try:
             parsedHints = len(self.readFromSpoilerLog(log))
+            print(parsedHints)
+            print(len(self.getHintList()))
             return parsedHints == len(self.getHintList())
         except:
             return False

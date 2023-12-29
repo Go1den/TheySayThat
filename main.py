@@ -101,12 +101,12 @@ class MainWindow(QWidget):
         labelGameDropdown.show()
 
         labelHintWritingMode = QLabel(self)
-        labelHintWritingMode.setText("Separate Hints in Output File With: ")
+        labelHintWritingMode.setText("Separate hints in output file with: ")
         labelHintWritingMode.move(451, 11)
         labelHintWritingMode.show()
 
         labelHintHandler = QLabel(self)
-        labelHintHandler.setText("Duplicate Hint Behavior: ")
+        labelHintHandler.setText("Duplicate hint behavior: ")
         labelHintHandler.move(671, 11)
         labelHintHandler.show()
 
@@ -427,7 +427,9 @@ class MainWindow(QWidget):
         currentSection = ButtonLayout("None", 0)
         hints = self.game.getHints()
         for i in range(len(hints)):
-            if currentSection.getButtonCount() == 0:
+            if currentSection.getButtonCount() == 0 and self.game.isUsingSectionHeaders():
+                if counter % self.game.getMaxButtonsPerRow() != 0:
+                    y = y + self.game.getButtonHeight() + self.game.getHeightGapBetweenButtons()
                 currentSection = buttonLayout.pop(0)
                 self.createSectionLabel(currentSection.getLabel(), baseX, y)
                 y = y + 20
@@ -440,7 +442,7 @@ class MainWindow(QWidget):
                 y = y + self.game.getButtonHeight() + self.game.getHeightGapBetweenButtons()
             counter += 1
         if counter % self.game.getMaxButtonsPerRow() != 0:  # the bottom most row of buttons won't show if it contains fewer than max amount of buttons per row unless we do this
-            y = y + self.game.getButtonHeight() + self.game.getHeightGapBetweenButtons()
+            y = y + self.game.getButtonHeight() + 10 # Make the bottom line up with the 10 pixel gap on the left and top
         self.setFixedSize(880, y)
 
     def createLegacyLayout(self):
@@ -472,6 +474,8 @@ class MainWindow(QWidget):
         if imagePath:
             btn.setIcon(QIcon(getcwd() + imagePath))
             btn.setIconSize(QSize(self.game.getButtonWidth(), self.game.getButtonHeight()))
+            if self.game.isUsingTooltips():
+                btn.setToolTip(buttonText)
         else:
             btn.setText(buttonText)
         btn.move(x, y)
