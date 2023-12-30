@@ -27,16 +27,16 @@ class MajorasMask(Game):
             Hint('SwampPotionShop', None, 'Swamp Potion Shop'),
             Hint('SwampRoad', None, 'Swamp Road'),
             Hint('SwampSpiderHouse', None, 'Swamp Spider House'),
-            Hint('TerminaEast', None, 'Termina East'),
             Hint('TerminaGossipDrums', None, 'Termina Gossip Drums'),
             Hint('TerminaGossipGuitar', None, 'Termina Gossip Guitar'),
             Hint('TerminaGossipLarge', None, 'Termina Gossip Large'),
             Hint('TerminaGossipPipes', None, 'Termina Gossip Pipes'),
-            Hint('TerminaMilk', None, 'Termina Milk'),
             Hint('TerminaNorth', None, 'Termina North'),
-            Hint('TerminaObservatory', None, 'Termina Observatory'),
+            Hint('TerminaEast', None, 'Termina East'),
             Hint('TerminaSouth', None, 'Termina South'),
-            Hint('TerminaWest', None, 'Termina West')
+            Hint('TerminaWest', None, 'Termina West'),
+            Hint('TerminaMilk', None, 'Termina Milk'),
+            Hint('TerminaObservatory', None, 'Termina Observatory')
         ]
 
     def readFromSpoilerLog(self, f) -> dict:
