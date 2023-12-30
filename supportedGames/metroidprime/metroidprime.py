@@ -26,5 +26,4 @@ class MetroidPrime(Game):
                 if 'Artifact' in locations.get(x).get(y):
                     locationsString += str(x) + " - " + str(y.split('/')[0]) + " (" + locations.get(x).get(y)[12:] + "), "
         result = {'Artifact Locations': locationsString[:-2]}
-        print(locationsString[:-2])
         return result

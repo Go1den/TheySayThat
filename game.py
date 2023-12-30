@@ -169,7 +169,6 @@ class Game(ABC):
             self.hints.sort(key=lambda x: x.sequenceNum)
             return True
         except Exception as e:
-            print(e)
             self.hints = temp
             return False
 
@@ -182,15 +181,12 @@ class Game(ABC):
     def allKeysHaveHints(self) -> bool:
         for hint in self.hints:
             if hint.value is None or hint.value == "":
-                print(hint.value)
                 return False
         return True
 
     def isCurrentSpoilerLogValidForGame(self, log):
         try:
             parsedHints = len(self.readFromSpoilerLog(log))
-            print(parsedHints)
-            print(len(self.getHintList()))
             return parsedHints == len(self.getHintList())
         except:
             return False
