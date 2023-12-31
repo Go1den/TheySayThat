@@ -1,4 +1,4 @@
-# TheySayThat - Randomizer Hint Display
+# TheySayThat - Universal Randomizer Hint Display
 
 <img src="https://repository-images.githubusercontent.com/604310317/cf022e6e-d2d5-4318-8011-b4c5d541fb4c"  width="882" height="441">
 
