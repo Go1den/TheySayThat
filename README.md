@@ -7,7 +7,7 @@ They say that given a spoiler log from one of several popular randomizers, this 
 **Supported Randomizers:**  
 [The Legend of Zelda: Ocarina of Time (v8.0)](https://ootrandomizer.com/)  
 [The Legend of Zelda: Majora's Mask  (v1.15.2.1)](https://github.com/ZoeyZolotova/mm-rando/releases/tag/v1.15.2.1)  
-[Donkey Kong 64 (v2.0)](https://dk64randomizer.com/)    
+[Donkey Kong 64 (v3.0)](https://dk64randomizer.com/)    
 [Metroid Prime](https://randovania.github.io/)  
 
 TheySayThat is designed to be a universal tool for hint display. Adding a new randomizer into the program requires only a simple class definition and, optionally, images for the buttons.
