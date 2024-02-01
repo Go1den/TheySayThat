@@ -69,6 +69,7 @@ class DonkeyKong64(Game):
             value = item[1].replace("YOU WOULD BE BETTER OFF LOOKING FOR SHOPS IN", "Look for shops in") \
                         .replace("YOU WOULD BE BETTER OFF LOOKING FOR", "Look for") \
                         .replace("YOU WOULD BE BETTER OFF LOOKING IN", "Look in") \
+                        .replace("REPTILIAN", "REPTILLIAN") \
                         .replace("LADIES AND GENTLEMEN! IT APPEARS THAT ONE FIGHTER HAS COME UNEQUIPPED TO PROPERLY HANDLE THIS REPTILLIAN BEAST. PERHAPS THEY SHOULD HAVE LOOKED", "Look") \
                         .replace("FOR THE ELUSIVE SLAM.", "for the elusive Slam.") \
                         .replace("A FAIRY", "a fairy") \
