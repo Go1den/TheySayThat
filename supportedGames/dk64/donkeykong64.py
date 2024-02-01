@@ -74,7 +74,8 @@ class DonkeyKong64(Game):
                         .replace("A FAIRY", "a fairy") \
                         .replace("A BATTLE CROWN", "a battle crown") \
                         .replace("A DIRT PATCH", "a dirt patch") \
-                        .replace("A KASPLAT", "a Kasplat") \
+                        .replace("A BATTLE ARENA", "a Battle Arena") \
+                        .replace("A KASPLAT", "a kasplat") \
                         .replace("JUNGLE JAPES", "Jungle Japes") \
                         .replace("ANGRY AZTEC", "Angry Aztec") \
                         .replace("FRANTIC FACTORY", "Frantic Factory") \
