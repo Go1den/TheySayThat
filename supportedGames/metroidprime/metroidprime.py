@@ -13,7 +13,7 @@ class MetroidPrime(Game):
 
     def getHintList(self) -> list[Hint]:
         return [
-            Hint('Artifact Locations')
+            Hint(['Artifact Locations'])
         ]
 
     def readFromSpoilerLog(self, f) -> dict:

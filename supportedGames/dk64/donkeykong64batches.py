@@ -4,51 +4,26 @@ from buttonlayout import ButtonLayout
 from game import Game
 from hint import Hint
 
-class DonkeyKong64(Game):
+class DonkeyKong64Batches(Game):
 
     def __init__(self):
         super().__init__()
 
     def getGameNameText(self) -> str:
-        return "Donkey Kong 64 (Classic Hints)"
+        return "Donkey Kong 64 (Batch Hints)"
 
     def getHintList(self) -> list[Hint]:
         return [
-            Hint(['Japes DK'], '/supportedGames/dk64/images/dk.png', 'Jungle Japes - DK Hint'),
-            Hint(['Japes Diddy'], '/supportedGames/dk64/images/diddy.png', 'Jungle Japes - Diddy Hint'),
-            Hint(['Japes Lanky'], '/supportedGames/dk64/images/lanky.png', 'Jungle Japes - Lanky Hint'),
-            Hint(['Japes Tiny'], '/supportedGames/dk64/images/tiny.png', 'Jungle Japes - Tiny Hint'),
-            Hint(['Japes Chunky'], '/supportedGames/dk64/images/chunky.png', 'Jungle Japes - Chunky Hint'),
-            Hint(['Aztec DK'], '/supportedGames/dk64/images/dk.png', 'Angry Aztec - DK Hint'),
-            Hint(['Aztec Diddy'], '/supportedGames/dk64/images/diddy.png', 'Angry Aztec - Diddy Hint'),
-            Hint(['Aztec Lanky'], '/supportedGames/dk64/images/lanky.png', 'Angry Aztec - Lanky Hint'),
-            Hint(['Aztec Tiny'], '/supportedGames/dk64/images/tiny.png', 'Angry Aztec - Tiny Hint'),
-            Hint(['Aztec Chunky'], '/supportedGames/dk64/images/chunky.png', 'Angry Aztec - Chunky Hint'),
-            Hint(['Factory DK'], '/supportedGames/dk64/images/dk.png', 'Frantic Factory - DK Hint'),
-            Hint(['Factory Diddy'], '/supportedGames/dk64/images/diddy.png', 'Frantic Factory - Diddy Hint'),
-            Hint(['Factory Lanky'], '/supportedGames/dk64/images/lanky.png', 'Frantic Factory - Lanky Hint'),
-            Hint(['Factory Tiny'], '/supportedGames/dk64/images/tiny.png', 'Frantic Factory - Tiny Hint'),
-            Hint(['Factory Chunky'], '/supportedGames/dk64/images/chunky.png', 'Frantic Factory - Chunky Hint'),
-            Hint(['Galleon DK'], '/supportedGames/dk64/images/dk.png', 'Gloomy Galleon - DK Hint'),
-            Hint(['Galleon Diddy'], '/supportedGames/dk64/images/diddy.png', 'Gloomy Galleon - Diddy Hint'),
-            Hint(['Galleon Lanky'], '/supportedGames/dk64/images/lanky.png', 'Gloomy Galleon - Lanky Hint'),
-            Hint(['Galleon Tiny'], '/supportedGames/dk64/images/tiny.png', 'Gloomy Galleon - Tiny Hint'),
-            Hint(['Galleon Chunky'], '/supportedGames/dk64/images/chunky.png', 'Gloomy Galleon - Chunky Hint'),
-            Hint(['Fungi DK'], '/supportedGames/dk64/images/dk.png', 'Fungi Forest - DK Hint'),
-            Hint(['Fungi Diddy'], '/supportedGames/dk64/images/diddy.png', 'Fungi Forest - Diddy Hint'),
-            Hint(['Fungi Lanky'], '/supportedGames/dk64/images/lanky.png', 'Fungi Forest - Lanky Hint'),
-            Hint(['Fungi Tiny'], '/supportedGames/dk64/images/tiny.png', 'Fungi Forest - Tiny Hint'),
-            Hint(['Fungi Chunky'], '/supportedGames/dk64/images/chunky.png', 'Fungi Forest - Chunky Hint'),
-            Hint(['Caves DK'], '/supportedGames/dk64/images/dk.png', 'Crystal Caves - DK Hint'),
-            Hint(['Caves Diddy'], '/supportedGames/dk64/images/diddy.png', 'Crystal Caves - Diddy Hint'),
-            Hint(['Caves Lanky'], '/supportedGames/dk64/images/lanky.png', 'Crystal Caves - Lanky Hint'),
-            Hint(['Caves Tiny'], '/supportedGames/dk64/images/tiny.png', 'Crystal Caves - Tiny Hint'),
-            Hint(['Caves Chunky'], '/supportedGames/dk64/images/chunky.png', 'Crystal Caves - Chunky Hint'),
-            Hint(['Castle DK'], '/supportedGames/dk64/images/dk.png', 'Creepy Castle - DK Hint'),
-            Hint(['Castle Diddy'], '/supportedGames/dk64/images/diddy.png', 'Creepy Castle - Diddy Hint'),
-            Hint(['Castle Lanky'], '/supportedGames/dk64/images/lanky.png', 'Creepy Castle - Lanky Hint'),
-            Hint(['Castle Tiny'], '/supportedGames/dk64/images/tiny.png', 'Creepy Castle - Tiny Hint'),
-            Hint(['Castle Chunky'], '/supportedGames/dk64/images/chunky.png', 'Creepy Castle - Chunky Hint'),
+            Hint(['Japes DK', 'Japes Diddy', 'Japes Lanky', 'Japes Tiny'], None, 'Batch 1'),
+            Hint(['Japes Chunky', 'Aztec DK', 'Aztec Diddy', 'Aztec Lanky'], None, 'Batch 2'),
+            Hint(['Aztec Tiny', 'Aztec Chunky', 'Factory DK', 'Factory Diddy'], None, 'Batch 3'),
+            Hint(['Factory Lanky', 'Factory Tiny', 'Factory Chunky', 'Galleon DK'], None, 'Batch 4'),
+            Hint(['Galleon Diddy', 'Galleon Lanky', 'Galleon Tiny', 'Galleon Chunky'], None, 'Batch 5'),
+            Hint(['Fungi DK', 'Fungi Diddy', 'Fungi Lanky', 'Fungi Tiny'], None, 'Batch 6'),
+            Hint(['Fungi Chunky', 'Caves DK', 'Caves Diddy', 'Caves Lanky'], None, 'Batch 7'),
+            Hint(['Caves Tiny', 'Caves Chunky', 'Castle DK', 'Castle Diddy'], None, 'Batch 8'),
+            Hint(['Castle Lanky', 'Castle Tiny'], None, 'Batch 9'),
+            Hint(['Castle Chunky'], None, 'Batch 10'),
             Hint(['Bongos'], '/supportedGames/dk64/images/bongos.png', 'Bongos Hint'),
             Hint(['Guitar'], '/supportedGames/dk64/images/guitar.png', 'Guitar Hint'),
             Hint(['Trombone'], '/supportedGames/dk64/images/trombone.png', 'Trombone Hint'),
@@ -124,13 +99,7 @@ class DonkeyKong64(Game):
 
     def getButtonLayout(self) -> list[ButtonLayout]:
         return [
-            ButtonLayout('Japes', 5),
-            ButtonLayout('Aztec', 5),
-            ButtonLayout('Factory', 5),
-            ButtonLayout('Galleon', 5),
-            ButtonLayout('Forest', 5),
-            ButtonLayout('Caves', 5),
-            ButtonLayout('Castle', 5),
+            ButtonLayout('Batches', 10),
             ButtonLayout('Instruments', 5),
             ButtonLayout('Other', 3)
         ]

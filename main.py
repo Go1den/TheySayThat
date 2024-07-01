@@ -11,6 +11,7 @@ from buttonlayout import ButtonLayout
 from fileHelper import isPathExistsOrCreatable, writeToFile, fileContainsText, clearFile, readFileToString, writeToFileWithChosenIndent
 from game import Game
 from supportedGames.dk64.donkeykong64 import DonkeyKong64
+from supportedGames.dk64.donkeykong64batches import DonkeyKong64Batches
 from supportedGames.majorasmask.majorasmask import MajorasMask
 from supportedGames.metroidprime.metroidprime import MetroidPrime
 from supportedGames.ocarinaoftime.ocarinaoftime import OcarinaOfTime
@@ -21,6 +22,7 @@ class MainWindow(QWidget):
         super().__init__()
 
         self.games: list[Game] = [
+            DonkeyKong64Batches(),
             DonkeyKong64(),
             OcarinaOfTime(),
             MajorasMask(),
@@ -269,29 +271,30 @@ class MainWindow(QWidget):
         indent = self.getIndent()
         btn.setEnabled(False)
         self.clickedButtons.append(buttonKey)
-        hintText = self.game.getHints()[buttonKey].getValue()
-        if self.hintHandler == "Always add every hint":
-            writeToFileWithChosenIndent(self.outputFile, hintText, indent)
-            return
-        hintAlreadyExists = fileContainsText(self.outputFile, hintText)
-        if not hintAlreadyExists:
-            writeToFileWithChosenIndent(self.outputFile, hintText, indent)
-            return
-        if self.hintHandler == "Count duplicate hints":
-            fileContents = readFileToString(self.outputFile)
-            idx = fileContents.index(hintText)
-            if idx >= 0:
-                checkIndex = idx + len(hintText)
-                potentialCountString = fileContents[checkIndex:checkIndex + 5]
-                if ' (x' in potentialCountString and ')' in potentialCountString:
-                    currentCount = int(fileContents[checkIndex + 3])
-                    result = fileContents[:checkIndex + 3] + str(currentCount + 1) + fileContents[checkIndex + 4:]
-                else:
-                    result = fileContents[:checkIndex] + ' (x2)' + fileContents[checkIndex:]
-                clearFile(self.outputFile)
-                writeToFileWithChosenIndent(self.outputFile, result, None)
-            else:  # Should not be possible
+        hintTextList = self.game.getHints()[buttonKey].getValues()
+        for hintText in hintTextList:
+            if self.hintHandler == "Always add every hint":
                 writeToFileWithChosenIndent(self.outputFile, hintText, indent)
+                continue
+            hintAlreadyExists = fileContainsText(self.outputFile, hintText)
+            if not hintAlreadyExists:
+                writeToFileWithChosenIndent(self.outputFile, hintText, indent)
+                continue
+            if self.hintHandler == "Count duplicate hints":
+                fileContents = readFileToString(self.outputFile)
+                idx = fileContents.index(hintText)
+                if idx >= 0:
+                    checkIndex = idx + len(hintText)
+                    potentialCountString = fileContents[checkIndex:checkIndex + 5]
+                    if ' (x' in potentialCountString and ')' in potentialCountString:
+                        currentCount = int(fileContents[checkIndex + 3])
+                        result = fileContents[:checkIndex + 3] + str(currentCount + 1) + fileContents[checkIndex + 4:]
+                    else:
+                        result = fileContents[:checkIndex] + ' (x2)' + fileContents[checkIndex:]
+                    clearFile(self.outputFile)
+                    writeToFileWithChosenIndent(self.outputFile, result, None)
+                else:  # Should not be possible
+                    writeToFileWithChosenIndent(self.outputFile, hintText, indent)
 
     def resetButtons(self, override):
         reply = QMessageBox.No
@@ -403,19 +406,20 @@ class MainWindow(QWidget):
                 x = nextX
                 currentSection = buttonLayout.pop(0)
                 if currentSection.getButtonCount() > maxEntriesInColumn:
-                    maxEntriesInColumn = currentSection.getButtonCount()
+                    maxEntriesInColumn = min(currentSection.getButtonCount(), self.game.getMaxButtonsPerColumn())
                 self.createSectionLabel(currentSection.getLabel(), x, baseY)
                 nextX = x + self.game.getButtonWidth() + self.game.getWidthGapBetweenButtons()
                 y = baseY + 20
                 counter = 0
             buttonText = hints[i].getButtonText()
-            y = baseY + 20 + (counter % self.game.getMaxButtonsPerRow()) * (self.game.getButtonHeight() + self.game.getHeightGapBetweenButtons())
+            y = baseY + 20 + (counter % self.game.getMaxButtonsPerColumn()) * (self.game.getButtonHeight() + self.game.getHeightGapBetweenButtons())
             self.createButton(buttonText, x, y, hints[i].getImagePath())
             currentSection.setButtonCount(currentSection.getButtonCount() - 1)
-            if counter % self.game.getMaxButtonsPerRow() == self.game.getMaxButtonsPerRow() - 1:
+            if counter % self.game.getMaxButtonsPerColumn() == self.game.getMaxButtonsPerColumn() - 1:
+                nextX = x + self.game.getButtonWidth() + self.game.getWidthGapBetweenButtons()
                 x = x + self.game.getButtonWidth() + self.game.getWidthGapBetweenButtons()
             counter += 1
-        if counter % self.game.getMaxButtonsPerRow() != 0:  # the bottom most row of buttons won't show if it contains fewer than max amount of buttons per row unless we do this
+        if counter % self.game.getMaxButtonsPerColumn() != 0:  # the bottom most row of buttons won't show if it contains fewer than max amount of buttons per row unless we do this
             x = x + self.game.getButtonWidth() + self.game.getWidthGapBetweenButtons()
         self.setFixedSize(880, baseY + 20 + maxEntriesInColumn * (self.game.getButtonHeight() + self.game.getHeightGapBetweenButtons()))
 

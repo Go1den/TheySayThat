@@ -1,18 +1,24 @@
 class Hint:
 
-    def __init__(self, key="", imagePath=None, buttonText="", sequenceNum=999, value=""):
-        # The key of this hint as it appears in the spoiler log
-        self.key = key
+    def __init__(self, keys=None, imagePath=None, buttonText="", sequenceNum=999, values=None):
+        # A list of key(s) of this hint as they appear in the spoiler log
+        # Having multiple keys in the list will mean multiple hints are associated with the same button
+        # For example: in Donkey Kong 64 Randomizer hints are distributed in batches, rather than one at a time.
+        if keys is None:
+            keys = []
+        self.keys = keys
 
         # The imagePath, if there is one, to be used on the button in the program for this hint
         self.imagePath = imagePath
 
         # The hint text as it appears in the spoiler log
-        self.value = value
+        if values is None:
+            values = [None for x in range(len(self.keys))]
+        self.values = values
 
         # The text to be displayed on the button for this hint
         if buttonText == "":
-            self.buttonText = key
+            self.buttonText = ', '.join(keys)
         else:
             self.buttonText = buttonText
 
@@ -21,11 +27,11 @@ class Hint:
         # Default of 999 = no priority, will appear in order processed
         self.sequenceNum = sequenceNum
 
-    def setKey(self, key):
-        self.key = key
+    def setKeys(self, keys):
+        self.keys = keys
 
-    def getKey(self):
-        return self.key
+    def getKeys(self):
+        return self.keys
 
     def setImagePath(self, imagePath):
         self.imagePath = imagePath
@@ -33,11 +39,17 @@ class Hint:
     def getImagePath(self):
         return self.imagePath
 
-    def setValue(self, value):
-        self.value = value
+    def setValues(self, values):
+        self.values = values
 
-    def getValue(self):
-        return self.value
+    def getValues(self):
+        return self.values
+
+    def setValueAt(self, value, idx):
+        self.values[idx] = value
+
+    def getValueAt(self, idx):
+        return self.values[idx]
 
     def setButtonText(self, buttonText):
         self.buttonText = buttonText

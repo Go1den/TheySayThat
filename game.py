@@ -47,7 +47,17 @@ class Game(ABC):
     def getMaxButtonsPerRow(self) -> int:
         """
         Returns:
-            int: The maximum number of buttons allowed in any row of the layout. The default layout only permits 4 buttons in a row, but this can be overridden here.
+            int: The maximum number of buttons allowed in any row of the layout.
+            The default layout only permits 4 buttons in a row, but this can be overridden here.
+        """
+        return 4
+
+    # Override in child class if you wish to modify the default
+    def getMaxButtonsPerColumn(self) -> int:
+        """
+        Returns:
+            int: The maximum number of buttons allowed in any column of a column-based layout.
+            The default layout only permits 4 buttons in a column, but this can be overridden here.
         """
         return 4
 
@@ -97,6 +107,8 @@ class Game(ABC):
         """
         Returns:
             list[Hint]: A list of hint objects representing each hint location in the game.
+            Each hint object may contain 1 or more keys which correspond to 1 or more spoiler log lines.
+            A hint containing multiple keys will reveal all associated hints at once when clicked.
         """
         return []
 
@@ -161,11 +173,12 @@ class Game(ABC):
         """
         temp = deepcopy(self.hints)
         try:
-            hintKeyList = [x.key for x in self.hints]
             for entry in self.hintDict:
-                idx = hintKeyList.index(entry)
-                if idx is not None:
-                    self.hints[idx].setValue(self.hintDict.get(entry))
+                for hint in self.hints:
+                    if entry in hint.keys:
+                        keyIndex = hint.keys.index(entry)
+                        hintIndex = self.hints.index(hint)
+                        self.hints[hintIndex].setValueAt(self.hintDict.get(entry), keyIndex)
             self.hints.sort(key=lambda x: x.sequenceNum)
             return True
         except Exception as e:
@@ -180,13 +193,20 @@ class Game(ABC):
 
     def allKeysHaveHints(self) -> bool:
         for hint in self.hints:
-            if hint.value is None or hint.value == "":
-                return False
+            for value in hint.values:
+                if value is None or value == "":
+                    return False
         return True
 
-    def isCurrentSpoilerLogValidForGame(self, log):
+    def isCurrentSpoilerLogValidForGame(self, log) -> bool:
         try:
             parsedHints = len(self.readFromSpoilerLog(log))
-            return parsedHints == len(self.getHintList())
+            return parsedHints == self.getHintCount()
         except:
             return False
+
+    def getHintCount(self) -> int:
+        total = 0
+        for hint in self.hints:
+            total += len(hint.keys)
+        return total
