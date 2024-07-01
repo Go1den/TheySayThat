@@ -88,7 +88,11 @@ class MainWindow(QWidget):
             self.clickedButtons = []
             self.showWarningMessage("The current spoiler log is not compatible with the chosen game. Please select a valid spoiler log.")
         else:
-            self.setAllButtons(True)
+            if self.tryParseLog(self.spoilerLog):
+                self.setAllButtons(True)
+                self.promptClearOutputFile()
+            else:
+                self.showErrorMessage("The selected spoiler log is incompatible with the current game.")
 
     def onHintHandlerChange(self, hintHandler):
         self.hintHandler = hintHandler
@@ -303,6 +307,11 @@ class MainWindow(QWidget):
         if override or reply == QMessageBox.Yes:
             self.setAllButtons(True)
             self.clickedButtons = []
+
+    def promptClearOutputFile(self):
+        reply = QMessageBox.question(self, 'Confirm', 'The current spoiler log is still compatible with the chosen game. Would you like to clear the output file?', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if reply == QMessageBox.Yes:
+            clearFile(self.outputFile)
 
     def clearOutputFile(self, override):
         reply = QMessageBox.No
