@@ -11,7 +11,9 @@ from buttonlayout import ButtonLayout
 from fileHelper import isPathExistsOrCreatable, writeToFile, fileContainsText, clearFile, readFileToString, writeToFileWithChosenIndent
 from game import Game
 from supportedGames.dk64.donkeykong64 import DonkeyKong64
+from supportedGames.dk64.donkeykong64season4 import DonkeyKong64Season4
 from supportedGames.dk64.donkeykong64batches import DonkeyKong64Batches
+from supportedGames.dk64.donkeykong64batchesseason4 import DonkeyKong64BatchesSeason4
 from supportedGames.majorasmask.majorasmask import MajorasMask
 from supportedGames.metroidprime.metroidprime import MetroidPrime
 from supportedGames.ocarinaoftime.ocarinaoftime import OcarinaOfTime
@@ -22,6 +24,8 @@ class MainWindow(QWidget):
         super().__init__()
 
         self.games: list[Game] = [
+            DonkeyKong64Season4(),
+            DonkeyKong64BatchesSeason4(),
             DonkeyKong64Batches(),
             DonkeyKong64(),
             OcarinaOfTime(),

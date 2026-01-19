@@ -4,13 +4,13 @@ from buttonlayout import ButtonLayout
 from game import Game
 from hint import Hint
 
-class DonkeyKong64(Game):
+class DonkeyKong64Season4(Game):
 
     def __init__(self):
         super().__init__()
 
     def getGameNameText(self) -> str:
-        return "Donkey Kong 64 (Season 3, Classic Hints)"
+        return "Donkey Kong 64 (Season 4, Classic Hints)"
 
     def getHintList(self) -> list[Hint]:
         return [
@@ -54,7 +54,10 @@ class DonkeyKong64(Game):
             Hint(['Trombone'], '/supportedGames/dk64/images/trombone.png', 'Trombone Hint'),
             Hint(['Saxophone'], '/supportedGames/dk64/images/saxophone.png', 'Saxophone Hint'),
             Hint(['Triangle'], '/supportedGames/dk64/images/triangle.png', 'Triangle Hint'),
-            Hint(['Gorilla Gone'], '/supportedGames/dk64/images/gorillagone.png', 'Gorilla Gone Hint'),
+            Hint(['Candy'], '/supportedGames/dk64/images/candy.png', 'Candy Kong Hint'),
+            Hint(['Cranky'], '/supportedGames/dk64/images/cranky.png', 'Cranky Kong Hint'),
+            Hint(['Funky'], '/supportedGames/dk64/images/funky.png', 'Funky Kong Hint'),
+            Hint(['Snide'], '/supportedGames/dk64/images/snide.png', 'Snide Hint'),
             Hint(['Monkeyport'], '/supportedGames/dk64/images/monkeyport.png', 'Monkeyport Hint'),
             Hint(['Progressive Slam'], '/supportedGames/dk64/images/progressiveslam.png', 'Progressive Slam Hint')
         ]
@@ -65,53 +68,64 @@ class DonkeyKong64(Game):
         allHints = dict()
         directItemHints = dict(data['Direct Item Hints'].items())
         wrinklyItemHints = dict(data['Wrinkly Hints'].items())
-        for item in directItemHints.items():
-            value = item[1].replace("YOU WOULD BE BETTER OFF LOOKING FOR SHOPS IN", "Look for shops in") \
-                        .replace("YOU WOULD BE BETTER OFF LOOKING FOR", "Look for") \
-                        .replace("YOU WOULD BE BETTER OFF LOOKING IN", "Look in") \
-                        .replace("ANY KONG", "any Kong") \
-                        .replace("LADIES AND GENTLEMEN! IT APPEARS THAT ONE FIGHTER HAS COME UNEQUIPPED TO PROPERLY HANDLE THIS REPTILIAN BEAST. PERHAPS THEY SHOULD HAVE LOOKED", "Look") \
-                        .replace("FOR THE ELUSIVE SLAM.", "for the elusive Slam.") \
-                        .replace("A FAIRY", "a fairy") \
-                        .replace("A BATTLE CROWN", "a battle crown") \
-                        .replace("A DIRT PATCH", "a dirt patch") \
-                        .replace("A BATTLE ARENA", "a Battle Arena") \
-                        .replace("A KASPLAT", "a Kasplat") \
-                        .replace("A MELON CRATE", "a melon crate") \
-                        .replace("JUNGLE JAPES", "Jungle Japes") \
-                        .replace("ANGRY AZTEC", "Angry Aztec") \
-                        .replace("FRANTIC FACTORY", "Frantic Factory") \
-                        .replace("GLOOMY GALLEON", "Gloomy Galleon") \
-                        .replace("FUNGI FOREST", "Fungi Forest") \
-                        .replace("CRYSTAL CAVES", "Crystal Caves") \
-                        .replace("CREEPY CASTLE", "Creepy Castle") \
-                        .replace("HIDEOUT HELM", "Hideout Helm") \
-                        .replace("DK ISLES", "DK Isles") \
-                        .replace("CRANKY'S LAB", "Cranky's Lab") \
-                        .replace("DONKEY", "Donkey") \
-                        .replace("DIDDY", "Diddy") \
-                        .replace("TINY", "Tiny") \
-                        .replace("LANKY", "Lanky") \
-                        .replace("CHUNKY", "Chunky") \
-                        .replace("FOR A", "for a") \
-                        .replace("IN", "in") \
-                        .replace("WITH", "with") \
-                        .replace("FOR THIS.", "for this: " + item[0] + ".") \
-                        .replace("OR", "or")
-            value = value.replace("this: Monkeyport", "Monkeyport") \
-                .replace("this: Guitar", "the Guitar") \
-                .replace("this: Trombone", "the Trombone") \
-                .replace("this: Triangle", "the Triangle") \
-                .replace("this: Gorilla Gone", "Gorilla Gone") \
-                .replace("this: Bongos", "the Bongos") \
-                .replace("this: Saxophone", "the Saxophone")
-            allHints[item[0]] = value
-        for item in wrinklyItemHints.items():
-            if item[0] == 'First Time Talk':
+        for hint in directItemHints.items():
+            allHints[hint[0]] = self.sanitizeHint(hint)
+        for hint in wrinklyItemHints.items():
+            if hint[0] == 'First Time Talk':
                 continue
-            allHints[item[0]] = item[1]
+            allHints[hint[0]] = self.sanitizeHint(hint)
         result = {k: v for k, v in allHints.items()}
         return result
+
+    def sanitizeHint(self, hint):
+        return hint[1].replace("YOU WOULD BE BETTER OFF LOOKING FOR SHOPS IN", "Look for shops in") \
+            .replace("Something about collecting", "Collecting") \
+            .replace("YOU WOULD BE BETTER OFF LOOKING FOR", "Look for") \
+            .replace("YOU WOULD BE BETTER OFF LOOKING IN", "Look in") \
+            .replace("ANY KONG", "any Kong") \
+            .replace("LADIES AND GENTLEMEN! IT APPEARS THAT ONE FIGHTER HAS COME UNEQUIPPED TO PROPERLY HANDLE THIS REPTILIAN BEAST. PERHAPS THEY SHOULD HAVE LOOKED", "Look") \
+            .replace("Still looking for some super slam strength? Try looking in", "Slam upgrades can be found in") \
+            .replace("Final ", "") \
+            .replace("FOR THE ELUSIVE SLAM.", "for the elusive Slam.") \
+            .replace("A FAIRY", "a fairy") \
+            .replace("A BATTLE CROWN", "a battle crown") \
+            .replace("A DIRT PATCH", "a dirt patch") \
+            .replace("A BATTLE ARENA", "a Battle Arena") \
+            .replace("A KASPLAT", "a Kasplat") \
+            .replace("A MELON CRATE", "a melon crate") \
+            .replace("JUNGLE JAPES", "Jungle Japes") \
+            .replace("ANGRY AZTEC", "Angry Aztec") \
+            .replace("FRANTIC FACTORY", "Frantic Factory") \
+            .replace("GLOOMY GALLEON", "Gloomy Galleon") \
+            .replace("FUNGI FOREST", "Fungi Forest") \
+            .replace("CRYSTAL CAVES", "Crystal Caves") \
+            .replace("CREEPY CASTLE", "Creepy Castle") \
+            .replace("HIDEOUT HELM", "Hideout Helm") \
+            .replace("DK ISLES", "DK Isles") \
+            .replace("CRANKY'S LAB", "Cranky's Lab") \
+            .replace("DONKEY", "Donkey") \
+            .replace("DIDDY", "Diddy") \
+            .replace("TINY", "Tiny") \
+            .replace("LANKY", "Lanky") \
+            .replace("CHUNKY", "Chunky") \
+            .replace("FOR A", "for a") \
+            .replace("IN", "in") \
+            .replace("WITH", "with") \
+            .replace("FOR THIS.", "for this: " + hint[0] + ".") \
+            .replace("OR", "or") \
+            .replace("Something in the ", "") \
+            .replace("CANDY", "Candy") \
+            .replace("FUNKY", "Funky") \
+            .replace("CRANKY", "Cranky") \
+            .replace("HAS GONE ON VACATION TO THE UNDENIABLE SERENITY OF", "can be found in") \
+            .replace("HAS GONE ON VACATION TO THE OSHA VIOLATION HOTSPOT OF", "can be found in") \
+            .replace("this: Monkeyport", "Monkeyport") \
+            .replace("this: Guitar", "the Guitar") \
+            .replace("this: Trombone", "the Trombone") \
+            .replace("this: Triangle", "the Triangle") \
+            .replace("this: Gorilla Gone", "Gorilla Gone") \
+            .replace("this: Bongos", "the Bongos") \
+            .replace("this: Saxophone", "the Saxophone")
 
     def getMaxButtonsPerColumn(self) -> int:
         return 5
@@ -132,7 +146,8 @@ class DonkeyKong64(Game):
             ButtonLayout('Caves', 5),
             ButtonLayout('Castle', 5),
             ButtonLayout('Instruments', 5),
-            ButtonLayout('Other', 3)
+            ButtonLayout('Shops', 4),
+            ButtonLayout('Misc', 2)
         ]
 
     def isRowBasedLayout(self) -> bool:

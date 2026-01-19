@@ -10,7 +10,7 @@ class DonkeyKong64Batches(Game):
         super().__init__()
 
     def getGameNameText(self) -> str:
-        return "Donkey Kong 64 (Batch Hints)"
+        return "Donkey Kong 64 (Season 3, Batch Hints)"
 
     def getHintList(self) -> list[Hint]:
         return [
