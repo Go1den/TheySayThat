@@ -10,7 +10,7 @@ class DonkeyKong64Season4(Game):
         super().__init__()
 
     def getGameNameText(self) -> str:
-        return "Donkey Kong 64 (Season 4, Classic Hints)"
+        return "Donkey Kong 64 (Season 4, Wrinkly Hints)"
 
     def getHintList(self) -> list[Hint]:
         return [
