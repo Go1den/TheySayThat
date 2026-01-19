@@ -92,6 +92,7 @@ class DonkeyKong64BatchesSeason4(Game):
             .replace("CANDY", "Candy") \
             .replace("FUNKY", "Funky") \
             .replace("CRANKY", "Cranky") \
+            .replace("SNIDE", "Snide") \
             .replace("HAS GONE ON VACATION TO THE ", "can be found in") \
             .replace("GLORIOUS HILLS OF", "") \
             .replace("ARID SANDS OF", "") \

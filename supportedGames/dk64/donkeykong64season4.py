@@ -117,6 +117,7 @@ class DonkeyKong64Season4(Game):
             .replace("CANDY", "Candy") \
             .replace("FUNKY", "Funky") \
             .replace("CRANKY", "Cranky") \
+            .replace("SNIDE", "Snide") \
             .replace("HAS GONE ON VACATION TO THE ", "can be found in") \
             .replace("GLORIOUS HILLS OF", "") \
             .replace("ARID SANDS OF", "") \
@@ -136,18 +137,6 @@ class DonkeyKong64Season4(Game):
             .replace("this: Gorilla Gone", "Gorilla Gone") \
             .replace("this: Bongos", "the Bongos") \
             .replace("this: Saxophone", "the Saxophone")
-
-    "Glorious Hills",
-    "Arid Sands",
-    "OSHA Violation Hotspot",
-    "Murky Depths",
-    "Blissful Greens",
-    "Miners Paradise",
-    "Haunted Architecture",
-    "Timeless Corridors",
-    "Undeniable Serenity",
-    "Arcade Dwellers Paradise",
-    "Rube Goldberg Cacophony",
 
     def getMaxButtonsPerColumn(self) -> int:
         return 5
