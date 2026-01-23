@@ -193,6 +193,8 @@ class Game(ABC):
 
     def allKeysHaveHints(self) -> bool:
         for hint in self.hints:
+            if not hint.required:
+                continue
             for value in hint.values:
                 if value is None or value == "":
                     return False
@@ -200,8 +202,14 @@ class Game(ABC):
 
     def isCurrentSpoilerLogValidForGame(self, log) -> bool:
         try:
-            parsedHints = len(self.readFromSpoilerLog(log))
-            return parsedHints == self.getHintCount()
+            temp = self.readFromSpoilerLog(log)
+            for hint in self.hints:
+                if not hint.required:
+                    continue
+                for key in hint.keys:
+                    if key not in temp.keys():
+                        return False
+            return True
         except:
             return False
 

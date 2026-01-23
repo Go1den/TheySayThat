@@ -54,8 +54,8 @@ class DonkeyKong64(Game):
             Hint(['Trombone'], '/supportedGames/dk64/images/trombone.png', 'Trombone Hint'),
             Hint(['Saxophone'], '/supportedGames/dk64/images/saxophone.png', 'Saxophone Hint'),
             Hint(['Triangle'], '/supportedGames/dk64/images/triangle.png', 'Triangle Hint'),
-            Hint(['Gorilla Gone'], '/supportedGames/dk64/images/gorillagone.png', 'Gorilla Gone Hint'),
-            Hint(['Monkeyport'], '/supportedGames/dk64/images/monkeyport.png', 'Monkeyport Hint'),
+            Hint(['Gorilla Gone'], '/supportedGames/dk64/images/gorillagone.png', 'Gorilla Gone Hint', 999, None, False),
+            Hint(['Baboon Blast', 'Simian Spring', 'Baboon Balloon', 'Monkeyport', 'Gorilla Gone'], '/supportedGames/dk64/images/monkeyport.png', 'Isles Switch', 999, None, False),
             Hint(['Progressive Slam'], '/supportedGames/dk64/images/progressiveslam.png', 'Progressive Slam Hint')
         ]
 
@@ -104,7 +104,10 @@ class DonkeyKong64(Game):
                 .replace("this: Triangle", "the Triangle") \
                 .replace("this: Gorilla Gone", "Gorilla Gone") \
                 .replace("this: Bongos", "the Bongos") \
-                .replace("this: Saxophone", "the Saxophone")
+                .replace("this: Saxophone", "the Saxophone") \
+                .replace("this: Baboon Blast", "Baboon Blast") \
+                .replace("this: Simian Spring", "Simian Spring") \
+                .replace("this: Baboon Balloon", "Baboon Balloon")
             allHints[item[0]] = value
         for item in wrinklyItemHints.items():
             if item[0] == 'First Time Talk':

@@ -281,6 +281,8 @@ class MainWindow(QWidget):
         self.clickedButtons.append(buttonKey)
         hintTextList = self.game.getHints()[buttonKey].getValues()
         for hintText in hintTextList:
+            if hintText is None or hintText == "":
+                continue
             if self.hintHandler == "Always add every hint":
                 writeToFileWithChosenIndent(self.outputFile, hintText, indent)
                 continue

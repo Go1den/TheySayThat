@@ -1,6 +1,6 @@
 class Hint:
 
-    def __init__(self, keys=None, imagePath=None, buttonText="", sequenceNum=999, values=None):
+    def __init__(self, keys=None, imagePath=None, buttonText="", sequenceNum=999, values=None, required=True):
         # A list of key(s) of this hint as they appear in the spoiler log
         # Having multiple keys in the list will mean multiple hints are associated with the same button
         # For example: in Donkey Kong 64 Randomizer hints are distributed in batches, rather than one at a time.
@@ -26,6 +26,9 @@ class Hint:
         # If all are set, 1 will appear first, 2 second, etc.
         # Default of 999 = no priority, will appear in order processed
         self.sequenceNum = sequenceNum
+
+        # On by default. If set to false, the validator will bypass this hint when checking if every hint is populated
+        self.required = required
 
     def setKeys(self, keys):
         self.keys = keys
@@ -62,3 +65,9 @@ class Hint:
 
     def getSequenceNum(self):
         return self.sequenceNum
+
+    def getRequired(self):
+        return self.required
+
+    def setRequired(self, required):
+        self.required = required
